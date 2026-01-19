@@ -5,9 +5,15 @@ import heroImage from "../../../assets/login-hero.svg";
 
 export const LoginLeftSide: React.FC = () => {
   return (
-    <div className={styles.leftSide}>
+    <section className={styles.leftSide}>
       <div className={styles.logoContainer}>
-        <img src={lendsqrLogo} alt="Lendsqr Logo" className={styles.logo} />
+        <img
+          height={36}
+          width={173.76}
+          src={lendsqrLogo}
+          alt="Lendsqr Logo"
+          className={styles.logo}
+        />
       </div>
 
       <div className={styles.heroContainer}>
@@ -17,6 +23,6 @@ export const LoginLeftSide: React.FC = () => {
           className={styles.heroImage}
         />
       </div>
-    </div>
+    </section>
   );
 };

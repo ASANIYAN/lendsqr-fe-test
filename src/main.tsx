@@ -10,6 +10,7 @@ createRoot(document.getElementById("root")!).render(
     <RouterProvider router={router} />
     <Toaster
       richColors={false}
+      position="top-center"
       toastOptions={{
         style: {
           fontFamily: "inherit",
