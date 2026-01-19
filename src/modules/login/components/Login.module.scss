@@ -1,0 +1,40 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.loginContainer {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.leftSide {
+  flex: 1;
+}
+
+.rightSide {
+  flex: 1;
+}
+
+@include respond-to(tablet) {
+  .loginContainer {
+    flex-direction: column;
+  }
+
+  .leftSide {
+    flex: none;
+  }
+
+  .rightSide {
+    flex: none;
+  }
+}
+
+@include respond-to(mobile) {
+  .leftSide {
+    display: none;
+  }
+
+  .rightSide {
+    flex: 1;
+  }
+}

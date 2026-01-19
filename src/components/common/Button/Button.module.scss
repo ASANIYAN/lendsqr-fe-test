@@ -1,0 +1,177 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  font-family: $font-family-primary;
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
+  text-align: center;
+
+  cursor: pointer;
+  border: 1px solid transparent;
+  outline: none;
+  transition: $button-transition;
+
+  text-decoration: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: $button-focus-ring;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &.loading {
+    cursor: wait;
+  }
+}
+
+.primary {
+  background-color: $color-primary;
+  color: $color-white;
+  border-color: $color-primary;
+
+  &:hover:not(:disabled) {
+    background-color: darken($color-primary, 5%);
+    border-color: darken($color-primary, 5%);
+  }
+
+  &:active:not(:disabled) {
+    background-color: darken($color-primary, 10%);
+    border-color: darken($color-primary, 10%);
+  }
+}
+
+// ======================
+// Variant: Outlined
+// ======================
+.outlined {
+  background-color: $color-white;
+
+  &:hover:not(:disabled) {
+    background-color: rgba($color-primary, 0.05);
+  }
+
+  &:active:not(:disabled) {
+    background-color: rgba($color-primary, 0.1);
+  }
+}
+
+// Outlined color variations
+.outlinedPrimary {
+  border-color: $color-primary;
+  color: $color-primary;
+
+  &:focus-visible {
+    box-shadow: $button-focus-ring;
+  }
+}
+
+.outlinedDanger {
+  border-color: $color-status-inactive;
+  color: $color-status-inactive;
+
+  &:hover:not(:disabled) {
+    background-color: rgba($color-status-inactive, 0.05);
+  }
+
+  &:active:not(:disabled) {
+    background-color: rgba($color-status-inactive, 0.1);
+  }
+
+  &:focus-visible {
+    box-shadow: $button-focus-ring-danger;
+  }
+}
+
+.outlinedSecondary {
+  border-color: $color-text-secondary;
+  color: $color-text-secondary;
+
+  &:hover:not(:disabled) {
+    background-color: rgba($color-text-secondary, 0.05);
+  }
+
+  &:active:not(:disabled) {
+    background-color: rgba($color-text-secondary, 0.1);
+  }
+}
+
+.small {
+  height: $button-height-small;
+  padding: 0 $spacing-md;
+  border-radius: $button-radius-medium;
+}
+
+.medium {
+  height: $button-height-medium;
+  padding: 0 $spacing-lg;
+  border-radius: $button-radius-medium;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.eauSans {
+  font-family: $font-family-login;
+}
+
+.content {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.iconLeft,
+.iconRight {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  flex-shrink: 0;
+}
+
+.outlined.small {
+  &.outlinedSecondary {
+    border-radius: $button-radius-small;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@include respond-to(mobile) {
+  .button {
+    font-size: $font-size-sm;
+
+    &.medium {
+      height: $button-height-small;
+      padding: 0 $spacing-md;
+    }
+  }
+}

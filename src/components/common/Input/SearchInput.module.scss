@@ -1,0 +1,103 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #213f7d;
+  border-radius: 8px;
+  background-color: #ffffff;
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: #39cdcc;
+    box-shadow: 0 0 0 1px #39cdcc;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.error {
+    border-color: #d42620;
+    box-shadow: 0 0 0 1px #d42620;
+  }
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: $font-family-primary; // work sans
+  font-size: 16px;
+  line-height: 19.2px;
+  font-weight: 400;
+  color: #000000cc;
+  padding: 0 16px;
+  height: 100%;
+
+  &::placeholder {
+    color: #545f7d;
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: transparent;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.searchIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #39cdcc;
+  height: 100%;
+  width: 48px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: darken(#39cdcc, 5%);
+  }
+
+  &:active {
+    background-color: darken(#39cdcc, 10%);
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.searchIcon {
+  color: #ffffff;
+  width: 14px;
+  height: 14px;
+}
+
+@include respond-to(mobile) {
+  .searchInput {
+    font-size: 14px;
+  }
+
+  .searchContainer {
+    height: 36px;
+  }
+
+  .searchIconContainer {
+    width: 40px;
+  }
+}
