@@ -32,15 +32,26 @@
   }
 }
 
-// Desktop Content (hidden on tablet and smaller)
+// Desktop Content (responsive visibility)
 .desktopContent {
   display: none;
   @include flex-between;
   width: 100%;
   margin-left: 168px; // 168px gap from logo
 
-  @media (min-width: #{$breakpoint-tablet + 1px}) {
+  // Show on desktop (>1024px)
+  @media (min-width: 1025px) {
     display: flex;
+  }
+
+  // Show on tablet (769px-1024px) but without search
+  @media (min-width: 769px) and (max-width: 1024px) {
+    display: flex;
+  }
+
+  // Hide completely on mobile (≤768px)
+  @media (max-width: 768px) {
+    display: none;
   }
 }
 
@@ -48,6 +59,11 @@
   flex: 1;
   max-width: 400px; // Reasonable max width for search
   margin-right: 24px; // Space before right section
+
+  // Hide search bar on 1024px and smaller
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .rightSection {
@@ -97,6 +113,11 @@
 .userSection {
   @include flex-center;
   gap: 10px;
+
+  // Hide user section on 768px and smaller
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .avatar {
@@ -133,7 +154,7 @@
   }
 }
 
-// Mobile Menu Button (visible on tablet and smaller)
+// Mobile Menu Button (visible on 1024px and smaller)
 .mobileMenuBtn {
   display: flex;
   background: none;
@@ -145,7 +166,7 @@
   @include flex-center;
   transition: background-color 0.2s ease;
 
-  @media (min-width: #{$breakpoint-tablet + 1px}) {
+  @media (min-width: 1025px) {
     display: none;
   }
 

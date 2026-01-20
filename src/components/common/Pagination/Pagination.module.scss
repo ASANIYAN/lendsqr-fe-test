@@ -1,0 +1,140 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: $font-family-primary;
+}
+
+// Navigation buttons (Previous/Next)
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background-color: rgba(33, 63, 125, 0.1);
+  border: 1px solid rgba(33, 63, 125, 0.04);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: $color-text-secondary;
+  outline: none;
+
+  &:hover:not(.disabled) {
+    background-color: rgba(33, 63, 125, 0.15);
+    border-color: rgba(33, 63, 125, 0.1);
+  }
+
+  &:focus-visible {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.2);
+  }
+
+  &:active:not(.disabled) {
+    background-color: rgba(33, 63, 125, 0.2);
+  }
+
+  &.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+// Page numbers container
+.pages {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+// Individual page buttons
+.pageButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  // Typography
+  font-family: $font-family-primary;
+  font-size: 16px;
+  font-weight: 400;
+  color: $color-text-secondary;
+  line-height: 18.77px;
+
+  &:hover:not(.active) {
+    background-color: rgba(33, 63, 125, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+
+  &:active:not(.active) {
+    background-color: rgba(33, 63, 125, 0.15);
+  }
+
+  &.active {
+    color: $color-text-primary;
+    font-weight: 500;
+    background-color: transparent;
+    cursor: default;
+  }
+}
+
+// Ellipsis
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  font-family: $font-family-primary;
+  font-size: 16px;
+  font-weight: 400;
+  color: $color-text-secondary;
+  line-height: 18.77px;
+  user-select: none;
+}
+
+// Responsive adjustments
+@include respond-to(mobile) {
+  .pagination {
+    gap: 8px;
+  }
+
+  .navButton {
+    width: 32px;
+    height: 32px;
+  }
+
+  .pages {
+    gap: 6px;
+  }
+
+  .pageButton {
+    min-width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .ellipsis {
+    min-width: 20px;
+    font-size: 14px;
+  }
+}

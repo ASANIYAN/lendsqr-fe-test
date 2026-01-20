@@ -1,0 +1,92 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.paginationInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-family-primary;
+  font-size: 14px;
+  font-weight: 400;
+  color: $color-text-secondary; // #545F7D
+  line-height: 16.42px;
+}
+
+.text {
+  color: $color-text-secondary;
+}
+
+// Select wrapper for positioning the chevron icon
+.selectWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.select {
+  // Layout
+  appearance: none; // Remove default browser styling
+  padding: 8px 32px 8px 16px; // Extra right padding for icon
+  min-width: 80px;
+  height: 30px;
+
+  // Typography
+  font-family: $font-family-primary;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-text-secondary;
+  line-height: 16.42px;
+
+  // Styling
+  background-color: rgba(33, 63, 125, 0.1); // Light blue-gray background
+  border: 1px solid rgba(33, 63, 125, 0.2);
+  border-radius: 4px;
+
+  // Interaction
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(33, 63, 125, 0.15);
+    border-color: rgba(33, 63, 125, 0.3);
+  }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 1px $color-primary;
+  }
+
+  // Remove default select arrow in IE
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+.icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; // Allow clicks to pass through to select
+  color: $color-text-secondary;
+  flex-shrink: 0;
+}
+
+// Responsive adjustments
+@include respond-to(mobile) {
+  .paginationInfo {
+    font-size: 12px;
+  }
+
+  .select {
+    font-size: 12px;
+    padding: 6px 28px 6px 12px;
+    min-width: 70px;
+    height: 28px;
+  }
+
+  .icon {
+    right: 10px;
+  }
+}
