@@ -13,7 +13,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 19.2px;
-  color: #000000;
+  color: $color-text-secondary;
   margin-bottom: -4px;
 }
 
@@ -21,7 +21,7 @@
   font-family: $font-family-primary;
   font-size: 12px;
   line-height: 16px;
-  color: #545f7d;
+  color: $color-text-secondary;
   margin-top: -4px;
 }
 
@@ -29,13 +29,13 @@
   font-family: $font-family-primary;
   font-size: 12px;
   line-height: 16px;
-  color: #d42620;
+  color: $color-status-blacklisted;
   margin-top: -4px;
 }
 
 // Error state for field
 .field[data-invalid="true"] {
   .label {
-    color: #d42620;
+    color: $color-status-blacklisted;
   }
 }
