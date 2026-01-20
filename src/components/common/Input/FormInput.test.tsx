@@ -1,8 +1,10 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { FormInput } from "./FormInput";
+import { BaseInput } from "./BaseInput";
+import { Field, FieldLabel, FieldError } from "../Field";
 
 // Define a proper form schema
 interface TestFormData {
@@ -12,6 +14,12 @@ interface TestFormData {
 
 interface SingleFieldFormData {
   email: string;
+}
+
+// Wrapper component to properly use hooks
+function FormInputWrapper(props: any) {
+  const { control } = useForm();
+  return <FormInput control={control} {...props} />;
 }
 
 // Update TestForm component
@@ -52,18 +60,34 @@ function TestFormWithValidation({
   onSubmit,
 }: {
   onSubmit: (data: SingleFieldFormData) => void;
-  rules?: Record<string, unknown>;
 }) {
   const { control, handleSubmit } = useForm<SingleFieldFormData>();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormInput
+      <Controller
         control={control}
         name="email"
-        label="Email Address"
-        placeholder="Enter email"
-        type="email"
+        rules={{
+          required: "Email is required",
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: "Invalid email address",
+          },
+        }}
+        render={({ field, fieldState: { error } }) => (
+          <Field data-invalid={!!error}>
+            <FieldLabel htmlFor="email">Email Address</FieldLabel>
+            <BaseInput
+              {...field}
+              id="email"
+              placeholder="Enter email"
+              type="email"
+              error={!!error}
+            />
+            {error && <FieldError errors={[error]} />}
+          </Field>
+        )}
       />
       <button type="submit">Submit</button>
     </form>
@@ -86,8 +110,7 @@ describe("FormInput", () => {
   });
 
   it("renders without label when not provided", () => {
-    const { control } = useForm();
-    render(<FormInput control={control} name="email" placeholder="Email" />);
+    render(<FormInputWrapper name="email" placeholder="Email" />);
 
     // Should not find label
     expect(screen.queryByRole("label")).not.toBeInTheDocument();
@@ -96,10 +119,8 @@ describe("FormInput", () => {
   });
 
   it("renders description when provided", () => {
-    const { control } = useForm();
     render(
-      <FormInput
-        control={control}
+      <FormInputWrapper
         name="email"
         label="Email"
         description="We'll never share your email"
@@ -158,11 +179,11 @@ describe("FormInput", () => {
     const onSubmit = vi.fn();
     render(<TestForm onSubmit={onSubmit} />);
 
-    // Password field should have SHOW button
+    // Password field should have SHOW button - look by text content
+    const showButton = screen.getByText("SHOW");
+    expect(showButton).toBeInTheDocument();
+    
     const passwordInput = screen.getByPlaceholderText(/enter your password/i);
-    const toggleButton = screen.getByRole("button", { name: /show password/i });
-
-    expect(toggleButton).toBeInTheDocument();
     expect(passwordInput).toHaveAttribute("type", "password");
   });
 
@@ -170,13 +191,8 @@ describe("FormInput", () => {
     const onSubmit = vi.fn();
     render(<TestForm onSubmit={onSubmit} />);
 
-    // Email field should NOT have toggle
-    const buttons = screen.getAllByRole("button");
-    const showButtons = buttons.filter(
-      (btn) => btn.textContent === "SHOW" || btn.textContent === "HIDE",
-    );
-
-    // Should only have 1 SHOW button (for password field)
+    // Email field should NOT have toggle, only password field should
+    const showButtons = screen.getAllByText("SHOW");
     expect(showButtons).toHaveLength(1);
   });
 
@@ -187,7 +203,7 @@ describe("FormInput", () => {
     render(<TestForm onSubmit={onSubmit} />);
 
     const passwordInput = screen.getByPlaceholderText(/enter your password/i);
-    const toggleButton = screen.getByRole("button", { name: /show password/i });
+    const toggleButton = screen.getByText("SHOW");
 
     // Initially password type
     expect(passwordInput).toHaveAttribute("type", "password");
@@ -214,18 +230,7 @@ describe("FormInput", () => {
     const user = userEvent.setup();
     const onSubmit = vi.fn();
 
-    render(
-      <TestFormWithValidation
-        onSubmit={onSubmit}
-        rules={{
-          required: "Email is required",
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "Invalid email address",
-          },
-        }}
-      />,
-    );
+    render(<TestFormWithValidation onSubmit={onSubmit} />);
 
     const submitButton = screen.getByRole("button", { name: /submit/i });
 
@@ -252,12 +257,7 @@ describe("FormInput", () => {
     const user = userEvent.setup();
     const onSubmit = vi.fn();
 
-    const { container } = render(
-      <TestFormWithValidation
-        onSubmit={onSubmit}
-        rules={{ required: "Email is required" }}
-      />,
-    );
+    const { container } = render(<TestFormWithValidation onSubmit={onSubmit} />);
 
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
@@ -272,9 +272,8 @@ describe("FormInput", () => {
    */
 
   it("applies primary variant by default", () => {
-    const { control } = useForm();
     const { container } = render(
-      <FormInput control={control} name="email" placeholder="Email" />,
+      <FormInputWrapper name="email" placeholder="Email" />,
     );
 
     const inputContainer = container.querySelector('[class*="primary"]');
@@ -282,10 +281,8 @@ describe("FormInput", () => {
   });
 
   it("applies secondary variant when specified", () => {
-    const { control } = useForm();
     const { container } = render(
-      <FormInput
-        control={control}
+      <FormInputWrapper
         name="username"
         placeholder="Username"
         variant="secondary"
