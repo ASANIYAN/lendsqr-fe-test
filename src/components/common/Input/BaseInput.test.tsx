@@ -5,10 +5,6 @@ import { BaseInput } from "./BaseInput";
 import { Search, X } from "lucide-react";
 
 describe("BaseInput", () => {
-  /**
-   * RENDERING TESTS
-   */
-
   it("renders input with placeholder", () => {
     render(<BaseInput placeholder="Enter email" />);
 
@@ -28,10 +24,6 @@ describe("BaseInput", () => {
     const inputContainer = container.firstChild as HTMLElement;
     expect(inputContainer.className).toContain("secondary");
   });
-
-  /**
-   * ICON TESTS
-   */
 
   it("renders left icon when provided", () => {
     render(

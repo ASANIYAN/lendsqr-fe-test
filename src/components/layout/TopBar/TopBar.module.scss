@@ -1,0 +1,176 @@
+@use "../../../styles/abstracts/variables" as *;
+@use "../../../styles/abstracts/mixins" as *;
+
+.topBar {
+  background: $color-white;
+  border-bottom: 1px solid $color-border-light;
+  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 100px;
+}
+
+.container {
+  @include flex-between;
+  height: 100%;
+  padding: 26px 30px;
+  max-width: 100%;
+
+  @include respond-to(tablet) {
+    padding: 26px 60px;
+  }
+}
+
+// Logo Section
+.logoSection {
+  flex-shrink: 0;
+
+  .logo {
+    height: auto;
+    max-height: 48px; // Adjust based on your logo's aspect ratio
+    width: auto;
+  }
+}
+
+// Desktop Content (hidden on mobile)
+.desktopContent {
+  display: none;
+  @include flex-between;
+  width: 100%;
+  margin-left: 168px; // 168px gap from logo
+
+  @media (min-width: #{$breakpoint-mobile + 1px}) {
+    display: flex;
+  }
+}
+
+.searchSection {
+  flex: 1;
+  max-width: 400px; // Reasonable max width for search
+  margin-right: 24px; // Space before right section
+}
+
+.rightSection {
+  @include flex-center;
+  gap: 32px; // Space between elements
+}
+
+.docsLink {
+  color: $color-text-primary;
+  font-family: $font-family-secondary; // Roboto
+  font-size: $font-size-base; // 16px
+  font-weight: $font-weight-regular; // 400
+  text-decoration: underline;
+  transition: color 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.notificationBtn {
+  background: none;
+  border: none;
+  color: $color-text-primary;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  @include flex-center;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(33, 63, 125, 0.05);
+  }
+
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.userSection {
+  @include flex-center;
+  gap: 8px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userName {
+  color: $color-text-primary;
+  font-family: $font-family-primary; // Work Sans
+  font-size: $font-size-base; // 16px
+  font-weight: $font-weight-medium; // 500
+  margin-left: 4px;
+}
+
+.dropdownBtn {
+  background: none;
+  border: none;
+  color: $color-text-primary;
+  cursor: pointer;
+  padding: 4px;
+  @include flex-center;
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(1px);
+  }
+
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+// Mobile Menu Button (visible only on mobile)
+.mobileMenuBtn {
+  display: flex;
+  background: none;
+  border: none;
+  color: $color-text-primary;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  @include flex-center;
+  transition: background-color 0.2s ease;
+
+  @media (min-width: #{$breakpoint-mobile + 1px}) {
+    display: none;
+  }
+
+  &:hover {
+    background-color: rgba(33, 63, 125, 0.05);
+  }
+
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+// Responsive adjustments
+@include respond-to(mobile) {
+  .topBar {
+    height: 80px; // Slightly smaller on mobile
+  }
+
+  .container {
+    padding: 20px 16px;
+  }
+
+  .logoSection .logo {
+    max-height: 40px; // Smaller logo on mobile
+  }
+}
