@@ -6,7 +6,6 @@ import { FormInput } from "./FormInput";
 import { BaseInput } from "./BaseInput";
 import { Field, FieldLabel, FieldError } from "../Field";
 
-// Define a proper form schema
 interface TestFormData {
   email: string;
   password: string;
