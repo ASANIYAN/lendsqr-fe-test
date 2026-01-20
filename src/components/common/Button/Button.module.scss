@@ -1,5 +1,6 @@
 @use "@/styles/abstracts/variables" as *;
 @use "@/styles/abstracts/mixins" as *;
+@use "sass:color";
 
 .button {
   display: inline-flex;
@@ -42,13 +43,13 @@
   border-color: $color-primary;
 
   &:hover:not(:disabled) {
-    background-color: darken($color-primary, 5%);
-    border-color: darken($color-primary, 5%);
+    background-color: color.adjust($color-primary, $lightness: -5%);
+    border-color: color.adjust($color-primary, $lightness: -5%);
   }
 
   &:active:not(:disabled) {
-    background-color: darken($color-primary, 10%);
-    border-color: darken($color-primary, 10%);
+    background-color: color.adjust($color-primary, $lightness: -10%);
+    border-color: color.adjust($color-primary, $lightness: -10%);
   }
 }
 
