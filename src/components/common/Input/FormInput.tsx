@@ -5,8 +5,16 @@ import {
   type FieldValues,
   type Path,
 } from "react-hook-form";
-import { BaseInput, type BaseInputProps } from "./BaseInput";
-import { Field, FieldLabel, FieldError, FieldDescription } from "../Field";
+import {
+  BaseInput,
+  type BaseInputProps,
+} from "@/components/common/Input/BaseInput";
+import {
+  Field,
+  FieldLabel,
+  FieldError,
+  FieldDescription,
+} from "@/components/common/Field";
 import styles from "./FormInput.module.scss";
 
 export interface FormInputProps<T extends FieldValues> extends Omit<

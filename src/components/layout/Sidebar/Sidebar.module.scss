@@ -1,0 +1,261 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+// Backdrop for mobile
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+
+  @include respond-to(tablet) {
+    display: block;
+  }
+}
+
+// Main sidebar
+.sidebar {
+  position: fixed;
+  top: 100px; // Account for TopBar height
+  left: 0;
+  width: 283px;
+  height: calc(100vh - 100px); // Subtract TopBar height
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.04);
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 0;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+
+  // Desktop: always visible and fixed
+  @media (min-width: #{$breakpoint-tablet + 1px}) {
+    transform: translateX(0);
+  }
+
+  // Mobile/Tablet: hidden by default
+  @include respond-to(tablet) {
+    top: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+  }
+
+  &.sidebarOpen {
+    @include respond-to(tablet) {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Close button (mobile only)
+.closeBtn {
+  display: none;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: $color-text-primary;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 8px;
+  border-radius: 4px;
+  @include flex-center;
+
+  &:hover {
+    background: rgba(33, 63, 125, 0.05);
+  }
+
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+// Show close button only when sidebar is open on mobile/tablet
+.sidebar.sidebarOpen .closeBtn {
+  @include respond-to(tablet) {
+    display: flex;
+  }
+}
+
+// Switch Organization section
+.switchOrg {
+  display: flex;
+  align-items: center;
+  padding: 30px 30px;
+  border-bottom: none;
+
+  .switchOrgIcon {
+    width: 16px;
+    height: 16px;
+
+    flex-shrink: 0;
+  }
+
+  .switchOrgText {
+    margin-left: 10px;
+    margin-right: auto;
+    color: $color-text-primary;
+    font-size: $font-size-base; // 16px
+    font-weight: $font-weight-regular; // 400
+    font-family: $font-family-primary;
+  }
+
+  .switchOrgdropdownIcon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+// Navigation
+.nav {
+  padding: 0 30px 40px;
+  margin-top: 52px; // 52px spacing from switch org
+}
+
+// Section styling
+.section {
+  &:not(:last-child) {
+    margin-bottom: 41px; // 41px between sections
+  }
+}
+
+.sectionLabel {
+  color: $color-text-secondary; // #545F7D
+  font-size: $font-size-xs; // 12px
+  font-weight: $font-weight-medium; // 500
+  font-family: $font-family-primary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  padding: 0;
+
+  &.sectionLabelActiveFirst {
+    margin-bottom: 10px; // 10px when first subroute is active
+  }
+
+  &.sectionLabelInactiveFirst {
+    margin-bottom: 20px; // 20px when first subroute is inactive
+  }
+}
+
+.itemsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+// Item styling
+.item {
+  position: relative;
+
+  &.itemActive {
+    height: 40px;
+    background: rgba(57, 205, 204, 0.06); // #39CDCC with 0.06 opacity
+    border-radius: 0;
+    margin-left: -30px; // Extend to sidebar wall
+    margin-right: -30px; // Extend to sidebar wall
+    padding-left: 30px; // Content starts 30px from wall
+    padding-right: 30px;
+    @include flex-center;
+    justify-content: flex-start;
+
+    // Left border indicator
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 40px;
+      background: #39cdcc;
+    }
+  }
+
+  &.itemInactive {
+    height: 19px;
+    @include flex-center;
+    justify-content: flex-start;
+    margin-bottom: 31px; // 31px gap between inactive subroutes
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Spacing after active item
+  &.itemActive + .itemInactive {
+    margin-top: 20px; // 20px gap between active and inactive
+  }
+
+  // Spacing adjustments for items after active
+  &.itemAfterActive {
+    margin-top: 20px;
+    margin-bottom: 31px;
+  }
+
+  &.itemAfterInactive {
+    margin-bottom: 31px;
+  }
+}
+
+.itemLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.itemIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.itemText {
+  margin-left: 10px; // 10px spacing between icon and text
+  font-family: $font-family-primary;
+  font-size: $font-size-base; // 16px
+
+  .itemActive & {
+    color: $color-text-primary; // #213F7D
+    font-weight: $font-weight-medium; // 500
+  }
+
+  .itemInactive & {
+    color: $color-text-primary; // #213F7D
+    font-weight: $font-weight-regular; // 400
+  }
+}
+
+// Dashboard special styling (if needed to be different)
+.section:first-child {
+  .item {
+    margin-bottom: 0;
+
+    &.itemInactive {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Special spacing for dashboard section gap
+.sectionGap {
+  height: 0;
+}

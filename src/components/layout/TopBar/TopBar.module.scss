@@ -1,5 +1,5 @@
-@use "../../../styles/abstracts/variables" as *;
-@use "../../../styles/abstracts/mixins" as *;
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
 
 .topBar {
   background: $color-white;
@@ -27,20 +27,19 @@
   flex-shrink: 0;
 
   .logo {
-    height: auto;
-    max-height: 48px; // Adjust based on your logo's aspect ratio
-    width: auto;
+    height: 30px;
+    width: 144.8px;
   }
 }
 
-// Desktop Content (hidden on mobile)
+// Desktop Content (hidden on tablet and smaller)
 .desktopContent {
   display: none;
   @include flex-between;
   width: 100%;
   margin-left: 168px; // 168px gap from logo
 
-  @media (min-width: #{$breakpoint-mobile + 1px}) {
+  @media (min-width: #{$breakpoint-tablet + 1px}) {
     display: flex;
   }
 }
@@ -53,7 +52,7 @@
 
 .rightSection {
   @include flex-center;
-  gap: 32px; // Space between elements
+  gap: 30px;
 }
 
 .docsLink {
@@ -63,6 +62,7 @@
   font-weight: $font-weight-regular; // 400
   text-decoration: underline;
   transition: color 0.2s ease;
+  margin-right: 17px;
 
   &:hover {
     opacity: 0.8;
@@ -96,7 +96,7 @@
 
 .userSection {
   @include flex-center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .avatar {
@@ -111,7 +111,6 @@
   font-family: $font-family-primary; // Work Sans
   font-size: $font-size-base; // 16px
   font-weight: $font-weight-medium; // 500
-  margin-left: 4px;
 }
 
 .dropdownBtn {
@@ -121,7 +120,7 @@
   cursor: pointer;
   padding: 4px;
   @include flex-center;
-  margin-left: 4px;
+  margin-left: -4px;
   transition: transform 0.2s ease;
 
   &:hover {
@@ -134,7 +133,7 @@
   }
 }
 
-// Mobile Menu Button (visible only on mobile)
+// Mobile Menu Button (visible on tablet and smaller)
 .mobileMenuBtn {
   display: flex;
   background: none;
@@ -146,7 +145,7 @@
   @include flex-center;
   transition: background-color 0.2s ease;
 
-  @media (min-width: #{$breakpoint-mobile + 1px}) {
+  @media (min-width: #{$breakpoint-tablet + 1px}) {
     display: none;
   }
 

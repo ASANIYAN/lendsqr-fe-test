@@ -1,8 +1,12 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { LoginSchema, type LoginFormType } from "../utils/validation";
-import { toast } from "../../../utils/toast";
+import { useNavigate } from "react-router-dom";
+import {
+  LoginSchema,
+  type LoginFormType,
+} from "@/modules/login/utils/validation";
+import { toast } from "@/utils/toast";
 
 type UseLoginFormReturn = {
   form: ReturnType<typeof useForm<LoginFormType>>;
@@ -12,6 +16,7 @@ type UseLoginFormReturn = {
 
 export const useLoginForm = (): UseLoginFormReturn => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm<LoginFormType>({
     resolver: zodResolver(LoginSchema),
@@ -32,10 +37,12 @@ export const useLoginForm = (): UseLoginFormReturn => {
 
       toast.success("Login successful!");
 
+      // Navigate to users dashboard
+      navigate("/users");
+
       // Here you would typically:
       // 1. Make API call to login endpoint
       // 2. Store authentication token
-      // 3. Redirect to dashboard
     } catch (error) {
       // Show error toast
       toast.error("Login failed. Please check your credentials.");

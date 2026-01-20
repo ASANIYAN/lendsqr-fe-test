@@ -23,11 +23,14 @@
       "@/*": ["src/*"],
       "@/components/*": ["src/components/*"],
       "@/pages/*": ["src/pages/*"],
+      "@/router/*": ["src/router/*"],
       "@/styles/*": ["src/styles/*"],
       "@/types/*": ["src/types/*"],
       "@/utils/*": ["src/utils/*"],
       "@/services/*": ["src/services/*"],
-      "@/hooks/*": ["src/hooks/*"]
+      "@/hooks/*": ["src/hooks/*"],
+      "@/modules/*": ["src/modules/*"],
+      "@/assets/*": ["src/assets/*"]
     }
   },
   "files": [],

@@ -1,0 +1,36 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.title {
+  color: #213f7d;
+  font-weight: 500;
+  font-size: 24px;
+  margin: 0;
+  margin-bottom: 40px;
+
+  @include respond-to(mobile) {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    4,
+    1fr
+  ); // 4 cards per row on large desktop (≥1440px)
+  gap: 26px;
+
+  // 2 cards per row for screens less than 1440px
+  @media (max-width: 1439px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  // 1 card per row for screens less than 768px (mobile)
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

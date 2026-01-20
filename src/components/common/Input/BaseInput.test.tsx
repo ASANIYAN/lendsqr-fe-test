@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { BaseInput } from "./BaseInput";
+import { BaseInput } from "@/components/common/Input/BaseInput";
 import { Search, X } from "lucide-react";
 
 describe("BaseInput", () => {

@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
-import TopBar from "./TopBar";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import TopBar from "@/components/layout/TopBar/TopBar";
 
 // Mock the asset imports
-vi.mock("../../../assets/lendsqr-logo.png", () => ({
+vi.mock("@/assets/lendsqr-logo.png", () => ({
   default: "mock-logo.png",
 }));
 
-vi.mock("../../../assets/dummy-avatar.svg", () => ({
+vi.mock("@/assets/dummy-avatar.svg", () => ({
   default: "mock-avatar.svg",
 }));
 
 // Mock SearchInput component
-vi.mock("../../common/Input/SearchInput", () => ({
+vi.mock("@/components/common/Input/SearchInput", () => ({
   SearchInput: ({ placeholder }: { placeholder: string }) => (
     <input data-testid="search-input" placeholder={placeholder} />
   ),
@@ -29,6 +29,10 @@ const TestWrapper = () => {
 };
 
 describe("TopBar", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("renders the logo", () => {
     render(<TestWrapper />);
     const logo = screen.getByAltText("Lendsqr");

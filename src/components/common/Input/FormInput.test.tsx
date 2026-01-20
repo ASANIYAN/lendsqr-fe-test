@@ -2,9 +2,9 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useForm, Controller } from "react-hook-form";
-import { FormInput } from "./FormInput";
-import { BaseInput } from "./BaseInput";
-import { Field, FieldLabel, FieldError } from "../Field";
+import { FormInput } from "@/components/common/Input/FormInput";
+import { BaseInput } from "@/components/common/Input/BaseInput";
+import { Field, FieldLabel, FieldError } from "@/components/common/Field";
 
 interface TestFormData {
   email: string;

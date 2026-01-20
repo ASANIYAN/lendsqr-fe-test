@@ -1,9 +1,11 @@
 import React from "react";
-import { Menu, Bell, ChevronDown } from "lucide-react";
-import { SearchInput } from "../../common/Input/SearchInput";
+import { Menu } from "lucide-react";
+import { SearchInput } from "@/components/common/Input/SearchInput";
 import styles from "./TopBar.module.scss";
-import lendsqrLogo from "../../../assets/lendsqr-logo.png";
-import dummyAvatar from "../../../assets/dummy-avatar.svg";
+import lendsqrLogo from "@/assets/lendsqr-logo.png";
+import dropdownIcon from "@/assets/dropdown-icon.svg";
+import notificationIcon from "@/assets/notification.svg";
+import dummyAvatar from "@/assets/dummy-avatar.svg";
 
 interface TopBarProps {
   isSidebarOpen: boolean;
@@ -17,7 +19,7 @@ const TopBar: React.FC<TopBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
   return (
     <header className={styles.topBar}>
-      <div className={styles.container}>
+      <section className={styles.container}>
         {/* Logo */}
         <div className={styles.logoSection}>
           <img src={lendsqrLogo} alt="Lendsqr" className={styles.logo} />
@@ -39,7 +41,12 @@ const TopBar: React.FC<TopBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               className={styles.notificationBtn}
               aria-label="Notifications"
             >
-              <Bell size={20} />
+              <img
+                width={26}
+                height={26}
+                src={notificationIcon}
+                alt="notification-bell-icon"
+              />
             </button>
             <div className={styles.userSection}>
               <img
@@ -49,7 +56,12 @@ const TopBar: React.FC<TopBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               />
               <span className={styles.userName}>Adedeji</span>
               <button className={styles.dropdownBtn} aria-label="User menu">
-                <ChevronDown size={16} />
+                <img
+                  width={20}
+                  height={20}
+                  src={dropdownIcon}
+                  alt="profile-dropdown-icon"
+                />
               </button>
             </div>
           </div>
@@ -63,7 +75,7 @@ const TopBar: React.FC<TopBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         >
           <Menu size={24} />
         </button>
-      </div>
+      </section>
     </header>
   );
 };

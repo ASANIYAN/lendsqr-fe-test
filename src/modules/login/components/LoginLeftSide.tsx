@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./LoginLeftSide.module.scss";
-import lendsqrLogo from "../../../assets/lendsqr-logo.png";
-import heroImage from "../../../assets/login-hero.svg";
+import lendsqrLogo from "@/assets/lendsqr-logo.png";
+import heroImage from "@/assets/login-hero.svg";
 
 export const LoginLeftSide: React.FC = () => {
   return (

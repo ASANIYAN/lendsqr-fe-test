@@ -1,6 +1,7 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
-import App from "../App";
-import Login from "../modules/login/views/Login";
+import App from "@/App";
+import Login from "@/modules/login/views/Login";
+import { Users } from "@/views";
 
 export const routes: RouteObject[] = [
   {
@@ -11,6 +12,10 @@ export const routes: RouteObject[] = [
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "users",
+        element: <Users />,
       },
       {
         index: true,

@@ -1,0 +1,57 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.authLayout {
+  height: 100vh;
+  background-color: #fbfbfb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mainContainer {
+  display: flex;
+  flex: 1;
+  position: relative;
+  height: calc(100vh - 100px); // Subtract TopBar height
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  // On desktop, account for sidebar width
+  @media (min-width: #{$breakpoint-tablet + 1px}) {
+    margin-left: 283px;
+  }
+
+  // On mobile/tablet, no margin since sidebar is overlay
+  @include respond-to(tablet) {
+    margin-left: 0;
+  }
+}
+
+.contentSection {
+  flex: 1;
+  padding: 60px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  // Responsive padding adjustments
+  @include respond-to(tablet) {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  @include respond-to(mobile) {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}

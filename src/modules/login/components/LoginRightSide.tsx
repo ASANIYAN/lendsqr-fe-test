@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./LoginRightSide.module.scss";
-import { FormInput } from "../../../components/common/Input";
-import { Button } from "../../../components/common/Button/Button";
-import { useLoginForm } from "../hooks/useLoginForm";
-import type { LoginFormType } from "../utils/validation";
+import { FormInput } from "@/components/common/Input";
+import { Button } from "@/components/common/Button/Button";
+import { useLoginForm } from "@/modules/login/hooks/useLoginForm";
+import type { LoginFormType } from "@/modules/login/utils/validation";
 
 export const LoginRightSide: React.FC = () => {
   const { form, handleSubmit, isLoading } = useLoginForm();
