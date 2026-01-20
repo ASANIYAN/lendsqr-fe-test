@@ -1,0 +1,68 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.filter {
+  background: #ffffff;
+  border: 1px solid #213f7d26;
+  border-radius: 4px;
+  box-shadow: 3px 5px 20px 0px #0000000a;
+  padding: 24px;
+  min-width: 270px;
+  max-width: 350px;
+  z-index: 1000;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-family: "Work Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #545f7d;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.resetButton {
+  flex: 1;
+  border: 1px solid #545f7d;
+  color: #545f7d;
+  background: transparent;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+}
+
+.filterButton {
+  flex: 1;
+  background: #39cdcc;
+  color: #ffffff;
+
+  &:hover {
+    background: #2db8b7;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .filter {
+    min-width: 250px;
+    max-width: 300px;
+    padding: 20px;
+  }
+}

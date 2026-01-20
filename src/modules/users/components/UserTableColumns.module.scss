@@ -1,0 +1,73 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.headerWithFilter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerText {
+  font-family: "Work Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #545f7d;
+  text-transform: uppercase;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 2px;
+  transition: background-color 0.15s ease;
+  color: #545f7d;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+
+  &:focus {
+    outline: 2px solid #39cdcc;
+    outline-offset: 1px;
+  }
+}
+
+.cellText {
+  font-size: 14px;
+  color: #545f7d;
+  font-family: "Work Sans", sans-serif;
+}
+
+.actionsCell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ellipsisButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 2px;
+  transition: background-color 0.15s ease;
+  color: #545f7d;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+
+  &:focus {
+    outline: 2px solid #39cdcc;
+    outline-offset: 1px;
+  }
+}

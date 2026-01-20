@@ -1,0 +1,141 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.selectContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  border-radius: 5px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:focus-within {
+    outline: none;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.error {
+    border-color: #d42620;
+  }
+}
+
+.select {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  line-height: 19.2px;
+  font-weight: 400;
+  color: #000000cc;
+  padding: 0 16px;
+  padding-right: 40px; // Space for dropdown icon
+  appearance: none;
+  cursor: pointer;
+
+  &::placeholder {
+    color: #545f7d;
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: transparent;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  // Style the option elements
+  option {
+    background-color: #ffffff;
+    color: #000000cc;
+    padding: 8px 12px;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+
+    &:disabled {
+      color: #545f7d;
+      background-color: #f8f9fa;
+    }
+  }
+}
+
+.iconRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #545f7d;
+  position: absolute;
+  right: 16px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+// Variant: Primary (Email/Password style)
+.primary {
+  height: 50px;
+  border: 2px solid #545f7d26;
+  border-radius: 5px;
+  background-color: #ffffff;
+
+  .select {
+    font-family: $font-family-login; // eau sans
+  }
+
+  &:focus-within {
+    border-color: #39cdcc;
+    box-shadow: 0 0 0 1px #39cdcc;
+  }
+
+  &.error {
+    border-color: #d42620;
+    box-shadow: 0 0 0 1px #d42620;
+  }
+}
+
+// Variant: Secondary (Username/Others style)
+.secondary {
+  height: 40px;
+  border: 1px solid #213f7d;
+  border-radius: 8px;
+  background-color: #ffffff;
+
+  .select {
+    font-family: $font-family-primary; // work sans
+  }
+
+  &:focus-within {
+    border-color: #39cdcc;
+    box-shadow: 0 0 0 1px #39cdcc;
+  }
+
+  &.error {
+    border-color: #d42620;
+    box-shadow: 0 0 0 1px #d42620;
+  }
+}
+
+@include respond-to(mobile) {
+  .select {
+    font-size: 14px;
+  }
+
+  .primary {
+    height: 45px;
+  }
+
+  .secondary {
+    height: 36px;
+  }
+}

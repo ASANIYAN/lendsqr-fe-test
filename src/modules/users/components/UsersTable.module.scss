@@ -1,0 +1,100 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.usersTable {
+  position: relative;
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+}
+
+.filterOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.filterContainer {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.loadingState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background: #ffffff;
+  border: 1px solid #213f7d0f;
+  border-radius: 4px;
+}
+
+.loadingSpinner {
+  font-family: "Work Sans", sans-serif;
+  font-size: 16px;
+  color: #545f7d;
+}
+
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background: #ffffff;
+  border: 1px solid #213f7d0f;
+  border-radius: 4px;
+  padding: 32px;
+  text-align: center;
+
+  h3 {
+    font-family: "Work Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #213f7d;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-family: "Work Sans", sans-serif;
+    font-size: 14px;
+    color: #545f7d;
+    margin: 0;
+  }
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  background: #fbfcfd;
+  border-top: 1px solid #213f7d0f;
+  padding: 32px;
+  text-align: center;
+
+  p {
+    font-family: "Work Sans", sans-serif;
+    font-size: 14px;
+    color: #545f7d;
+    margin: 0;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .filterContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

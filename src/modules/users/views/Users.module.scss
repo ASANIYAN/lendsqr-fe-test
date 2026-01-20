@@ -1,0 +1,35 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.usersPage {
+  padding: 32px;
+  background: #fbfcfd;
+  min-height: calc(100vh - 100px);
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.title {
+  font-family: "Work Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #213f7d;
+  margin: 0;
+}
+
+.tableSection {
+  margin-top: 40px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .usersPage {
+    padding: 20px 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+}

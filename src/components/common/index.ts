@@ -1,4 +1,11 @@
 export { default as Button } from "./Button";
 export { BaseInput, FormInput, SearchInput } from "./Input";
+export { BaseSelect } from "./Select";
 export { Field, FieldLabel, FieldDescription, FieldError } from "./Field";
 export { default as Card } from "./Card";
+export { Badge } from "./Badge/Badge";
+export { Pagination } from "./Pagination/Pagination";
+export { PaginationInfo } from "./PaginationInfo/PaginationInfo";
+export { Table } from "./Table/Table";
+export { Filter } from "./Filter/Filter";
+export { Dropdown } from "./Dropdown/Dropdown";
