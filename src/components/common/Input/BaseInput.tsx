@@ -56,11 +56,7 @@ export const BaseInput = React.forwardRef<HTMLInputElement, BaseInputProps>(
           {...props}
         />
 
-        {rightIcon && (
-          <div className={styles.iconRight}>
-            {rightIcon}
-          </div>
-        )}
+        {rightIcon && <div className={styles.iconRight}>{rightIcon}</div>}
       </div>
     );
   },

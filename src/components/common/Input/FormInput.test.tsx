@@ -16,13 +16,20 @@ interface SingleFieldFormData {
   email: string;
 }
 
-// Wrapper component to properly use hooks
-function FormInputWrapper(props: any) {
+interface FormInputWrapperProps {
+  name: string;
+  placeholder?: string;
+  label?: string;
+  description?: string;
+  variant?: "primary" | "secondary";
+  type?: string;
+}
+
+function FormInputWrapper(props: FormInputWrapperProps) {
   const { control } = useForm();
   return <FormInput control={control} {...props} />;
 }
 
-// Update TestForm component
 function TestForm({
   onSubmit,
   defaultValues = {},
@@ -95,10 +102,6 @@ function TestFormWithValidation({
 }
 
 describe("FormInput", () => {
-  /**
-   * RENDERING TESTS
-   */
-
   it("renders input with label", () => {
     const onSubmit = vi.fn();
     render(<TestForm onSubmit={onSubmit} />);
@@ -112,9 +115,7 @@ describe("FormInput", () => {
   it("renders without label when not provided", () => {
     render(<FormInputWrapper name="email" placeholder="Email" />);
 
-    // Should not find label
     expect(screen.queryByRole("label")).not.toBeInTheDocument();
-    // But input should exist
     expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument();
   });
 
@@ -171,10 +172,6 @@ describe("FormInput", () => {
     expect(emailInput).toHaveValue("default@example.com");
   });
 
-  /**
-   * PASSWORD TOGGLE TESTS
-   */
-
   it("shows password toggle button for password input", () => {
     const onSubmit = vi.fn();
     render(<TestForm onSubmit={onSubmit} />);
@@ -182,7 +179,7 @@ describe("FormInput", () => {
     // Password field should have SHOW button - look by text content
     const showButton = screen.getByText("SHOW");
     expect(showButton).toBeInTheDocument();
-    
+
     const passwordInput = screen.getByPlaceholderText(/enter your password/i);
     expect(passwordInput).toHaveAttribute("type", "password");
   });
@@ -234,20 +231,16 @@ describe("FormInput", () => {
 
     const submitButton = screen.getByRole("button", { name: /submit/i });
 
-    // Submit empty form
     await user.click(submitButton);
 
-    // Should show required error
     await waitFor(() => {
       expect(screen.getByText(/email is required/i)).toBeInTheDocument();
     });
 
-    // Type invalid email
     const emailInput = screen.getByPlaceholderText(/enter email/i);
     await user.type(emailInput, "invalid-email");
     await user.click(submitButton);
 
-    // Should show pattern error
     await waitFor(() => {
       expect(screen.getByText(/invalid email address/i)).toBeInTheDocument();
     });
@@ -257,7 +250,9 @@ describe("FormInput", () => {
     const user = userEvent.setup();
     const onSubmit = vi.fn();
 
-    const { container } = render(<TestFormWithValidation onSubmit={onSubmit} />);
+    const { container } = render(
+      <TestFormWithValidation onSubmit={onSubmit} />,
+    );
 
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
@@ -266,10 +261,6 @@ describe("FormInput", () => {
       expect(field).toBeInTheDocument();
     });
   });
-
-  /**
-   * VARIANT TESTS
-   */
 
   it("applies primary variant by default", () => {
     const { container } = render(
