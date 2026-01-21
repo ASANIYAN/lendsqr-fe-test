@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "@/components/layout";
-import { UserStats } from "../components";
-import { UsersTable } from "../components/UsersTable";
+import { UserStats } from "../../components";
+import { UsersTable } from "../../components/UsersTable";
 import styles from "./Users.module.scss";
 
 const Users: React.FC = () => {

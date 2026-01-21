@@ -1,0 +1,82 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+
+  @include respond-to(tablet) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  // Typography
+  font-family: $font-family-primary;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0px;
+  color: $color-text-secondary; // #545F7D
+
+  // Icon color
+  color: $color-text-secondary;
+
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.title {
+  font-family: $font-family-primary;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0px;
+  color: $color-text-primary; // #213F7D
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+
+  @include respond-to(mobile) {
+    flex-direction: column;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
+}

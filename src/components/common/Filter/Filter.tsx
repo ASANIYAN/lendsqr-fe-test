@@ -1,5 +1,5 @@
 import React from "react";
-import { Calendar, X } from "lucide-react";
+import { X } from "lucide-react";
 import { BaseInput } from "../Input/BaseInput";
 import { BaseSelect, type SelectOption } from "../Select/BaseSelect";
 import { Button } from "../Button/Button";
@@ -148,6 +148,7 @@ export const Filter: React.FC<FilterProps> = ({
           <BaseInput
             id="username"
             placeholder="User"
+            variant="secondary"
             value={formData.username}
             onChange={(e) => handleInputChange("username", e.target.value)}
           />
@@ -161,6 +162,7 @@ export const Filter: React.FC<FilterProps> = ({
             id="email"
             type="email"
             placeholder="Email"
+            variant="secondary"
             value={formData.email}
             onChange={(e) => handleInputChange("email", e.target.value)}
           />
@@ -174,9 +176,10 @@ export const Filter: React.FC<FilterProps> = ({
             id="date"
             type="date"
             placeholder="Date"
+            variant="secondary"
             value={formData.date}
             onChange={(e) => handleInputChange("date", e.target.value)}
-            rightIcon={<Calendar size={16} />}
+            // rightIcon={<Calendar size={16} />}
           />
         </div>
 
@@ -185,8 +188,9 @@ export const Filter: React.FC<FilterProps> = ({
             Phone Number
           </label>
           <BaseInput
-            id="phoneNumber"
             type="tel"
+            id="phoneNumber"
+            variant="secondary"
             placeholder="Phone Number"
             value={formData.phoneNumber}
             onChange={(e) => handleInputChange("phoneNumber", e.target.value)}

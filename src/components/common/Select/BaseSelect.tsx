@@ -54,7 +54,12 @@ export const BaseSelect = React.forwardRef<HTMLSelectElement, BaseSelectProps>(
           {...props}
         >
           {placeholder && (
-            <option value="" disabled>
+            <option
+              value=""
+              className={styles.placeholder}
+              disabled
+              style={{ color: "#545f7d" }}
+            >
               {placeholder}
             </option>
           )}

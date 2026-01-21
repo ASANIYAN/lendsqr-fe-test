@@ -40,7 +40,7 @@
   cursor: pointer;
 
   &::placeholder {
-    color: #545f7d;
+    color: #545f7d !important;
     opacity: 1;
   }
 
@@ -58,6 +58,11 @@
     background-color: #ffffff;
     color: #000000cc;
     padding: 8px 12px;
+
+    .placeholder {
+      color: #545f7d !important;
+      opacity: 1;
+    }
 
     &:hover {
       background-color: #f5f5f5;
@@ -107,7 +112,7 @@
 // Variant: Secondary (Username/Others style)
 .secondary {
   height: 40px;
-  border: 1px solid #213f7d;
+  border: 1px solid #213f7d33;
   border-radius: 8px;
   background-color: #ffffff;
 
