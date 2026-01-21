@@ -1,5 +1,6 @@
 @use "@/styles/abstracts/variables" as *;
 @use "@/styles/abstracts/mixins" as *;
+@use "sass:color";
 
 // ======================
 // Container
@@ -289,7 +290,7 @@
     border-radius: 4px;
 
     &:hover {
-      background: darken($color-border-light, 10%);
+      background: color.adjust($color-border-light, $lightness: -10%);
     }
   }
 }

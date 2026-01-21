@@ -1,37 +1,27 @@
 @use "@/styles/abstracts/variables" as *;
 @use "@/styles/abstracts/mixins" as *;
 
-.tableContainer {
+.container {
   width: 100%;
   background: #ffffff;
   border: 1px solid #213f7d0f;
   box-shadow: 3px 5px 20px 0px #0000000a;
   border-radius: 4px;
   overflow: hidden;
-}
 
-.searchContainer {
-  padding: 16px;
-  border-bottom: 1px solid #213f7d0f;
-}
-
-.searchInput {
-  width: 100%;
-  max-width: 300px;
-  padding: 8px 12px;
-  border: 1px solid #213f7d26;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #545f7d;
-  background: #ffffff;
-
-  &::placeholder {
-    color: #545f7d80;
+  // Desktop styling (1440px and above)
+  @media (min-width: 1440px) {
+    padding: 30px 30px 32px 30px;
   }
 
-  &:focus {
-    outline: none;
-    border-color: #39cdcc;
+  // Tablet styling (768px - 1439px)
+  @media (min-width: 768px) and (max-width: 1439px) {
+    padding: 24px 24px 28px 24px;
+  }
+
+  // Mobile styling (below 768px)
+  @media (max-width: 767px) {
+    padding: 16px 16px 20px 16px;
   }
 }
 
@@ -46,16 +36,17 @@
   font-family: "Work Sans", sans-serif;
 }
 
-.tableHead {
+.thead {
   background: #fbfcfd;
-  border-bottom: 1px solid #213f7d0f;
 }
 
 .headerRow {
-  border-bottom: 1px solid #213f7d0f;
+  // Line styling between header and body
+  border-bottom: 1px solid #213f7d1a;
+  height: 1px;
 }
 
-.headerCell {
+.th {
   padding: 16px 20px;
   text-align: left;
   font-family: "Work Sans", sans-serif;
@@ -63,21 +54,34 @@
   font-weight: 600;
   color: #545f7d;
   text-transform: uppercase;
-  border-right: 1px solid #213f7d0f;
   vertical-align: middle;
   white-space: nowrap;
 
-  &:last-child {
-    border-right: none;
+  // Desktop spacing (1440px and above)
+  @media (min-width: 1440px) {
+    padding: 16px 20px;
+  }
+
+  // Tablet spacing (768px - 1439px)
+  @media (min-width: 768px) and (max-width: 1439px) {
+    padding: 14px 16px;
+  }
+
+  // Mobile spacing (below 768px)
+  @media (max-width: 767px) {
+    padding: 12px 14px;
+    font-size: 11px;
   }
 }
 
-.tableBody {
+.tbody {
   background: #ffffff;
 }
 
 .bodyRow {
-  border-bottom: 1px solid #213f7d0f;
+  // Line styling between rows
+  border-bottom: 1px solid #213f7d1a;
+  height: 1px;
   transition: background-color 0.15s ease;
 
   &:hover {
@@ -89,17 +93,32 @@
   }
 }
 
-.bodyCell {
-  padding: 16px 20px;
+.td {
   font-size: 14px;
   color: #545f7d;
-  border-right: 1px solid #213f7d0f;
   vertical-align: middle;
   word-break: break-word;
 
-  &:last-child {
-    border-right: none;
+  // Desktop spacing (1440px and above) - 22px top/bottom padding
+  @media (min-width: 1440px) {
+    padding: 22px 20px;
   }
+
+  // Tablet spacing (768px - 1439px)
+  @media (min-width: 768px) and (max-width: 1439px) {
+    padding: 18px 16px;
+  }
+
+  // Mobile spacing (below 768px)
+  @media (max-width: 767px) {
+    padding: 16px 14px;
+    font-size: 13px;
+  }
+}
+
+.emptyCell {
+  padding: 0;
+  border: none;
 }
 
 .emptyState {
@@ -108,27 +127,15 @@
   justify-content: center;
   min-height: 200px;
   background: #fbfcfd;
-  border: 1px solid #213f7d0f;
-  border-radius: 4px;
-  margin: 20px;
 
   p {
     font-family: "Work Sans", sans-serif;
     font-size: 16px;
     color: #545f7d;
     margin: 0;
-  }
-}
 
-// Responsive design
-@media (max-width: 768px) {
-  .headerCell,
-  .bodyCell {
-    padding: 12px 16px;
-    font-size: 12px;
-  }
-
-  .searchInput {
-    max-width: 100%;
+    @media (max-width: 767px) {
+      font-size: 14px;
+    }
   }
 }
