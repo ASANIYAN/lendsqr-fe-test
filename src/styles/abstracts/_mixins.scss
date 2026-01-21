@@ -16,8 +16,8 @@
     @media (min-width: $breakpoint-desktop) {
       @content;
     }
-  } @else if $breakpoint == desktop-xxl {
-    @media (min-width: $breakpoint-desktop-xxl) {
+  } @else if $breakpoint == desktopxxl {
+    @media (min-width: $breakpoint-desktopxxl) {
       @content;
     }
   }
