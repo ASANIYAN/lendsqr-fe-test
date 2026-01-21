@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { Table, Filter } from "@/components/common";
+import { DataTable, Filter } from "@/components/common";
 import type { FilterFormData } from "@/components/common/Filter/Filter";
+import { useDataTable } from "@/hooks/useDataTable";
 import { useUsersQuery } from "../hooks/useUsersQuery";
 import { createUserTableColumns } from "./UserTableColumns";
 import type { User, UserTableFilters } from "../utils/types";
@@ -115,13 +116,17 @@ export const UsersTable: React.FC<UsersTableProps> = ({
     ],
   );
 
-  if (isLoading) {
-    return (
-      <div className={styles.loadingState}>
-        <div className={styles.loadingSpinner}>Loading users...</div>
-      </div>
-    );
-  }
+  const { table } = useDataTable({
+    data: filteredUsers,
+    columns,
+    pageSize: 10,
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 10,
+      },
+    },
+  });
 
   if (isError) {
     return (
@@ -151,18 +156,13 @@ export const UsersTable: React.FC<UsersTableProps> = ({
         </>
       )}
 
-      <Table
-        data={filteredUsers}
-        columns={columns}
+      <DataTable
+        table={table}
+        isLoading={isLoading}
         onRowClick={handleRowClick}
+        pageSizeOptions={[10, 25, 50, 100]}
         className={styles.table}
       />
-
-      {filteredUsers.length === 0 && !isLoading && (
-        <div className={styles.emptyState}>
-          <p>No users found matching your criteria</p>
-        </div>
-      )}
     </div>
   );
 };

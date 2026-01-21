@@ -6,6 +6,6 @@ export { default as Card } from "./Card";
 export { Badge } from "./Badge/Badge";
 export { Pagination } from "./Pagination/Pagination";
 export { PaginationInfo } from "./PaginationInfo/PaginationInfo";
-export { Table } from "./Table/Table";
+export { DataTable } from "./DataTable/DataTable";
 export { Filter } from "./Filter/Filter";
 export { Dropdown } from "./Dropdown/Dropdown";

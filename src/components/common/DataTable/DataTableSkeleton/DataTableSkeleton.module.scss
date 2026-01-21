@@ -1,0 +1,295 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+// ======================
+// Container
+// ======================
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  overflow: auto;
+}
+
+// ======================
+// Toolbar (Filters & View Options)
+// ======================
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  overflow: auto;
+  padding: 4px;
+}
+
+.filters {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterSkeleton {
+  height: 28px;
+  width: 72px;
+  border: 1px dashed $color-border-light;
+  border-radius: $border-radius-sm;
+}
+
+.viewOptions {
+  margin-left: auto;
+  height: 28px;
+  width: 72px;
+  display: none;
+
+  @include respond-to(desktop) {
+    display: flex;
+  }
+}
+
+// ======================
+// Table Wrapper
+// ======================
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-md;
+  background-color: $color-white;
+}
+
+// ======================
+// Table
+// ======================
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: auto;
+  font-family: $font-family-primary;
+}
+
+// ======================
+// Table Head
+// ======================
+.thead {
+  background-color: $color-background;
+  border-bottom: 1px solid $color-border-light;
+}
+
+.headerRow {
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.th {
+  padding: 16px;
+  text-align: left;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  border-bottom: 1px solid $color-border-light;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.headerSkeleton {
+  height: 20px;
+  width: 100%;
+  max-width: 150px;
+}
+
+// ======================
+// Table Body
+// ======================
+.tbody {
+  background-color: $color-white;
+}
+
+.bodyRow {
+  border-bottom: 1px solid $color-border-light;
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.td {
+  padding: 16px;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-regular;
+  color: $color-text-primary;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.cellSkeleton {
+  height: 18px;
+  width: 100%;
+  max-width: 200px;
+}
+
+// ======================
+// Pagination
+// ======================
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  overflow: auto;
+  padding: 4px;
+
+  @include respond-to(tablet) {
+    gap: 32px;
+  }
+}
+
+.paginationInfo {
+  height: 28px;
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @include respond-to(tablet) {
+    gap: 24px;
+  }
+
+  @include respond-to(desktop) {
+    gap: 32px;
+  }
+}
+
+// Page Size
+.pageSize {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pageSizeLabel {
+  height: 28px;
+  width: 96px;
+}
+
+.pageSizeSelect {
+  height: 28px;
+  width: 72px;
+}
+
+// Page Number
+.pageNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+.pageNumberText {
+  height: 28px;
+  width: 80px;
+}
+
+// Page Buttons
+.pageButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pageButton {
+  height: 28px;
+  width: 28px;
+}
+
+.pageButtonHidden {
+  height: 28px;
+  width: 28px;
+  display: none;
+
+  @include respond-to(desktop) {
+    display: block;
+  }
+}
+
+// ======================
+// Responsive Adjustments
+// ======================
+@include respond-to(mobile) {
+  .toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .filters {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .viewOptions {
+    display: none;
+  }
+
+  .th,
+  .td {
+    padding: 12px;
+    font-size: $font-size-xs;
+  }
+
+  .tableWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pagination {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .paginationControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+// ======================
+// Table Scrollbar Styling (Optional)
+// ======================
+.tableWrapper {
+  // Custom scrollbar for webkit browsers
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-background;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-border-light;
+    border-radius: 4px;
+
+    &:hover {
+      background: darken($color-border-light, 10%);
+    }
+  }
+}
