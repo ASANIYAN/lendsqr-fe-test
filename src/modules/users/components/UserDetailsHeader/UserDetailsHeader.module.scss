@@ -7,7 +7,7 @@
   justify-content: space-between;
   margin-bottom: 40px;
 
-  @include respond-to(tablet) {
+  @include respond-to(mobile) {
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
@@ -23,7 +23,7 @@
 .backButton {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 13px;
   background: none;
   border: none;
   cursor: pointer;

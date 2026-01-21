@@ -69,7 +69,7 @@
 }
 
 // Outlined color variations
-.outlinedPrimary {
+.outlined-primary {
   border-color: $color-primary;
   color: $color-primary;
 
@@ -78,7 +78,7 @@
   }
 }
 
-.outlinedDanger {
+.outlined-danger {
   border-color: $color-status-inactive;
   color: $color-status-inactive;
 
@@ -95,7 +95,7 @@
   }
 }
 
-.outlinedSecondary {
+.outlined-secondary {
   border-color: $color-text-secondary;
   color: $color-text-secondary;
 

@@ -1,0 +1,78 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.infoContainer {
+  @include card-shadow; // Using your provided mixin
+  padding: 30px;
+  margin-top: 30px;
+  background: $color-white;
+  box-shadow: 3px 5px 20px 0px rgba(0, 0, 0, 0.04);
+  border-radius: $border-radius-sm;
+
+  .section {
+    margin-bottom: 30px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .heading {
+      font-family: $font-family-primary;
+      font-weight: $font-weight-medium;
+      font-size: 16px;
+      line-height: 100%;
+      color: $color-primary-dark;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 30px 20px;
+
+      @include respond-to(desktop) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      @include respond-to(tablet) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include respond-to(mobile) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    .infoGroup {
+      @include flex-column;
+      gap: 8px;
+
+      span:first-child {
+        font-family: $font-family-primary;
+        font-weight: $font-weight-normal;
+        font-size: 12px;
+        line-height: 100%;
+        text-transform: uppercase;
+        color: $color-text-secondary;
+      }
+
+      span:last-child {
+        font-family: $font-family-primary;
+        font-weight: $font-weight-medium;
+        font-size: 16px;
+        line-height: 100%;
+        color: $color-text-secondary;
+        word-break: break-word;
+      }
+    }
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid $color-primary-dark;
+    height: 0.5px;
+    width: 100%;
+    margin-bottom: 30px;
+    opacity: 0.1;
+  }
+}

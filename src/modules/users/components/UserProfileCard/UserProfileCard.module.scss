@@ -7,9 +7,9 @@
   border-radius: 4px;
   box-shadow: 3px 5px 20px 0px #0000000a;
 
-  @include respond-to(tablet) {
-    overflow-x: auto;
-  }
+  // @include respond-to(tablet) {
+  //   overflow-x: auto;
+  // }
 }
 
 .content {
@@ -68,7 +68,7 @@
 // Vertical Separator
 .separator {
   width: 1px;
-  height: 40px;
+  height: 80px;
   background-color: rgba(84, 95, 125, 0.3); // #545F7D with opacity
   flex-shrink: 0;
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Star } from "lucide-react";
 import { Avatar } from "@/components/common/Avatar";
 import styles from "./UserProfileCard.module.scss";
+import profile_icon from "@/assets/profile-icon.svg";
 import { Tabs, type Tab } from "@/components/common/Tabs";
 
 export interface UserProfileCardProps {
@@ -78,7 +79,7 @@ export const UserProfileCard = React.forwardRef<
         <div className={styles.content}>
           {/* User Info Section */}
           <div className={styles.userInfo}>
-            <Avatar size="large" alt={fullName} />
+            <Avatar src={profile_icon} size="large" alt={fullName} />
 
             <div className={styles.userDetails}>
               <h2 className={styles.userName}>{fullName}</h2>

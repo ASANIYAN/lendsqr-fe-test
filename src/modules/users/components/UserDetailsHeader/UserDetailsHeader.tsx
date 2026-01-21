@@ -1,7 +1,7 @@
 import React from "react";
-import { ArrowLeft } from "lucide-react";
 import styles from "./UserDetailsHeader.module.scss";
 import { Button } from "@/components/common";
+import arrow_icon from "@/assets/long-arrow-left-icon.svg";
 
 export interface UserDetailsHeaderProps {
   onBack: () => void;
@@ -25,7 +25,7 @@ export const UserDetailsHeader = React.forwardRef<
           className={styles.backButton}
           aria-label="Back to users"
         >
-          <ArrowLeft size={30} />
+          <img src={arrow_icon} width={30} height={30} alt="left-arrow-icon" />
           <span>Back to Users</span>
         </button>
 

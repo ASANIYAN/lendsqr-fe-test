@@ -18,27 +18,29 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
     const tabsClasses = [styles.tabs, className].filter(Boolean).join(" ");
 
     return (
-      <div ref={ref} className={tabsClasses}>
-        {tabs.map((tab) => {
-          const isActive = tab.id === activeTab;
-          const tabClasses = [styles.tab, isActive && styles.active]
-            .filter(Boolean)
-            .join(" ");
+      <section className={styles.tabs_container}>
+        <div ref={ref} className={tabsClasses}>
+          {tabs.map((tab) => {
+            const isActive = tab.id === activeTab;
+            const tabClasses = [styles.tab, isActive && styles.active]
+              .filter(Boolean)
+              .join(" ");
 
-          return (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => onTabChange(tab.id)}
-              className={tabClasses}
-              aria-selected={isActive}
-              role="tab"
-            >
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => onTabChange(tab.id)}
+                className={tabClasses}
+                aria-selected={isActive}
+                role="tab"
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      </section>
     );
   },
 );

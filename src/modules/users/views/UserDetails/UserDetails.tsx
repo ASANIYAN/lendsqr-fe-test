@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import styles from "./UserDetails.module.scss";
 import { UserDetailsHeader } from "../../components/UserDetailsHeader";
 import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
+import { UserInfo } from "../../components/UserInfo";
+import { AuthLayout } from "@/components/layout";
 
 export function UserDetails() {
   const navigate = useNavigate();
@@ -37,25 +38,27 @@ export function UserDetails() {
   };
 
   return (
-    <div className={styles.userDetails}>
-      <UserDetailsHeader
-        onBack={handleBack}
-        onBlacklist={handleBlacklist}
-        onActivate={handleActivate}
-      />
+    <AuthLayout>
+      <div>
+        <UserDetailsHeader
+          onBack={handleBack}
+          onBlacklist={handleBlacklist}
+          onActivate={handleActivate}
+        />
 
-      <UserProfileCard
-        fullName={userData.fullName}
-        userId={userData.userId}
-        userTier={userData.userTier}
-        accountBalance={userData.accountBalance}
-        accountNumber={userData.accountNumber}
-        bankName={userData.bankName}
-        onTabChange={handleTabChange}
-      />
+        <UserProfileCard
+          fullName={userData.fullName}
+          userId={userData.userId}
+          userTier={userData.userTier}
+          accountBalance={userData.accountBalance}
+          accountNumber={userData.accountNumber}
+          bankName={userData.bankName}
+          onTabChange={handleTabChange}
+        />
 
-      {/* Tab content will go here */}
-    </div>
+        <UserInfo />
+      </div>
+    </AuthLayout>
   );
 }
 
