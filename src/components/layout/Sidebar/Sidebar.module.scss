@@ -37,11 +37,12 @@
     transform: translateX(0);
   }
 
-  // Mobile/Tablet: hidden by default
+  // Mobile/Tablet: hidden by default, higher z-index to appear above TopBar
   @include respond-to(tablet) {
     top: 0;
     height: 100vh;
     transform: translateX(-100%);
+    z-index: 1001;
   }
 
   &.sidebarOpen {

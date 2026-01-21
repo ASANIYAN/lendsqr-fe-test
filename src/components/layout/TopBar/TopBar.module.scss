@@ -9,6 +9,11 @@
   top: 0;
   z-index: 1000;
   height: 100px;
+
+  // Lower z-index on mobile/tablet when sidebar overlay is active
+  @media (max-width: 1024px) {
+    z-index: 998;
+  }
 }
 
 .container {
