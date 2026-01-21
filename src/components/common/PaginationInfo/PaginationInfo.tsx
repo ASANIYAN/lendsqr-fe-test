@@ -24,6 +24,19 @@ export const PaginationInfo = React.forwardRef<
     },
     ref,
   ) => {
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+      const checkIsMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+
+      checkIsMobile();
+      window.addEventListener("resize", checkIsMobile);
+
+      return () => window.removeEventListener("resize", checkIsMobile);
+    }, []);
+
     const handlePageSizeChange = (
       event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
@@ -37,7 +50,7 @@ export const PaginationInfo = React.forwardRef<
 
     return (
       <div ref={ref} className={containerClasses}>
-        <span className={styles.text}>Showing</span>
+        <span className={styles.text}>{isMobile ? "Show" : "Showing"}</span>
 
         <div className={styles.selectWrapper}>
           <select
@@ -56,7 +69,9 @@ export const PaginationInfo = React.forwardRef<
         </div>
 
         <span className={styles.text}>
-          out of {totalItems.toLocaleString()}
+          {isMobile
+            ? `of ${totalItems.toLocaleString()}`
+            : `out of ${totalItems.toLocaleString()}`}
         </span>
       </div>
     );

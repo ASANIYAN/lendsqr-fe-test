@@ -76,17 +76,49 @@
 // Responsive adjustments
 @include respond-to(mobile) {
   .paginationInfo {
-    font-size: 12px;
+    font-size: 13px;
+    gap: 6px;
+    flex-wrap: wrap;
+
+    // Very small screens
+    @media (max-width: 479px) {
+      font-size: 12px;
+      gap: 4px;
+      justify-content: flex-start;
+    }
+  }
+
+  .text {
+    // Make text more compact on mobile
+    white-space: nowrap;
+
+    @media (max-width: 479px) {
+      font-size: 12px;
+    }
   }
 
   .select {
-    font-size: 12px;
-    padding: 6px 28px 6px 12px;
-    min-width: 70px;
-    height: 28px;
+    font-size: 13px;
+    padding: 8px 30px 8px 12px;
+    min-width: 65px;
+    height: 32px;
+
+    // Very small screens
+    @media (max-width: 479px) {
+      font-size: 12px;
+      padding: 6px 28px 6px 10px;
+      min-width: 60px;
+      height: 30px;
+    }
   }
 
   .icon {
-    right: 10px;
+    right: 8px;
+
+    @media (max-width: 479px) {
+      right: 6px;
+      width: 12px;
+      height: 12px;
+    }
   }
 }

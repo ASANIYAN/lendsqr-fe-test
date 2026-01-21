@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { DataTable, Filter } from "@/components/common";
 import type { FilterFormData } from "@/components/common/Filter/Filter";
 import { useDataTable } from "@/hooks/useDataTable";
@@ -22,6 +22,19 @@ export const UsersTable: React.FC<UsersTableProps> = ({
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [showFilter, setShowFilter] = useState<string | null>(null);
   const [filters, setFilters] = useState<UserTableFilters>({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if screen is mobile/tablet (less than 1024px)
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   // Filter users based on applied filters
   const filteredUsers = useMemo(() => {
@@ -121,6 +134,8 @@ export const UsersTable: React.FC<UsersTableProps> = ({
     columns,
     pageSize: 10,
     initialState: {
+      columnPinning: { right: ["actions"] },
+
       pagination: {
         pageIndex: 0,
         pageSize: 10,
@@ -139,13 +154,16 @@ export const UsersTable: React.FC<UsersTableProps> = ({
 
   return (
     <div className={styles.usersTable}>
-      {/* Filter overlay */}
+      {/* Filter with conditional overlay */}
       {showFilter && (
         <>
-          <div
-            className={styles.filterOverlay}
-            onClick={() => setShowFilter(null)}
-          />
+          {/* Show overlay only on mobile/tablet */}
+          {isMobile && (
+            <div
+              className={styles.filterOverlay}
+              onClick={() => setShowFilter(null)}
+            />
+          )}
           <div className={styles.filterContainer}>
             <Filter
               onFilter={handleFilter}

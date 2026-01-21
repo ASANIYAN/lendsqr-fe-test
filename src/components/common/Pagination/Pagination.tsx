@@ -15,18 +15,52 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     { currentPage, totalPages, onPageChange, siblingCount = 1, className = "" },
     ref,
   ) => {
+    // Responsive sibling count based on screen size
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+      const checkIsMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+
+      checkIsMobile();
+      window.addEventListener("resize", checkIsMobile);
+
+      return () => window.removeEventListener("resize", checkIsMobile);
+    }, []);
+
+    // Adjust sibling count for mobile
+    const responsiveSiblingCount = isMobile ? 0 : siblingCount;
     // Generate array of page numbers to display
     const getPageNumbers = (): (number | string)[] => {
-      const totalPageNumbers = siblingCount + 5; // First, last, current, and siblings
+      const totalPageNumbers = responsiveSiblingCount + 5; // First, last, current, and siblings
+
+      // On mobile, show fewer pages
+      if (isMobile && totalPages > 5) {
+        const current = currentPage + 1;
+
+        if (current <= 3) {
+          return [1, 2, 3, "...", totalPages];
+        }
+
+        if (current >= totalPages - 2) {
+          return [1, "...", totalPages - 2, totalPages - 1, totalPages];
+        }
+
+        return [1, "...", current, "...", totalPages];
+      }
 
       // Show all pages if total is small
       if (totalPages <= totalPageNumbers) {
         return Array.from({ length: totalPages }, (_, i) => i + 1);
       }
 
-      const leftSiblingIndex = Math.max(currentPage + 1 - siblingCount, 1);
+      const leftSiblingIndex = Math.max(
+        currentPage + 1 - responsiveSiblingCount,
+        1,
+      );
       const rightSiblingIndex = Math.min(
-        currentPage + 1 + siblingCount,
+        currentPage + 1 + responsiveSiblingCount,
         totalPages,
       );
 
@@ -38,7 +72,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
 
       // No left dots, but right dots
       if (!shouldShowLeftDots && shouldShowRightDots) {
-        const leftItemCount = 3 + 2 * siblingCount;
+        const leftItemCount = 3 + 2 * responsiveSiblingCount;
         const leftRange = Array.from(
           { length: leftItemCount },
           (_, i) => i + 1,
@@ -48,7 +82,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
 
       // Left dots, but no right dots
       if (shouldShowLeftDots && !shouldShowRightDots) {
-        const rightItemCount = 3 + 2 * siblingCount;
+        const rightItemCount = 3 + 2 * responsiveSiblingCount;
         const rightRange = Array.from(
           { length: rightItemCount },
           (_, i) => totalPages - rightItemCount + i + 1,

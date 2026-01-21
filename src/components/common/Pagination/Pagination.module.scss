@@ -115,26 +115,55 @@
 // Responsive adjustments
 @include respond-to(mobile) {
   .pagination {
-    gap: 8px;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .navButton {
     width: 32px;
     height: 32px;
+
+    // Make buttons more touch-friendly
+    @media (max-width: 479px) {
+      width: 36px;
+      height: 36px;
+    }
   }
 
   .pages {
-    gap: 6px;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    // Limit visible pages on very small screens
+    @media (max-width: 479px) {
+      max-width: 200px;
+      overflow: hidden;
+    }
   }
 
   .pageButton {
     min-width: 32px;
     height: 32px;
     font-size: 14px;
+
+    // Larger touch targets on very small screens
+    @media (max-width: 479px) {
+      min-width: 36px;
+      height: 36px;
+      font-size: 16px;
+      font-weight: 500;
+    }
   }
 
   .ellipsis {
     min-width: 20px;
     font-size: 14px;
+
+    @media (max-width: 479px) {
+      min-width: 24px;
+      font-size: 16px;
+    }
   }
 }

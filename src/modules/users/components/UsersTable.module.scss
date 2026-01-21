@@ -16,15 +16,36 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 999;
+
+  // Only show on mobile/tablet - handled by conditional rendering
 }
 
 .filterContainer {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 40px;
+  left: 0;
   z-index: 1000;
+
+  // On desktop, position at the leftmost side of the table
+  @media (min-width: 1024px) {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    transform: none;
+    max-width: none;
+  }
+
+  // On mobile/tablet, center for better UX
+  @media (max-width: 1023px) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100vw - 32px);
+    max-width: 400px;
+  }
 }
 
 .loadingState {
