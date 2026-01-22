@@ -17,6 +17,7 @@
 
 @include respond-to(tablet) {
   .loginContainer {
+    overflow: hidden;
     display: block;
     min-height: 100%;
     // flex-direction: column;
