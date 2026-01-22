@@ -3,6 +3,7 @@ import type { User } from "@/modules/users/utils/types";
 
 const STORAGE_KEY_PREFIX = "lendsqr_user_";
 const STORAGE_KEY_CURRENT = "lendsqr_current_user_id";
+const STORAGE_KEY_USER_LIST = "lendsqr_user_list";
 
 const getUserStorageKey = (userId: string): string => {
   return `${STORAGE_KEY_PREFIX}${userId}`;
@@ -38,6 +39,15 @@ export function useStoreUser(): UseStoreUserReturn {
       const serialized = serializeUser(user);
 
       localStorage.setItem(key, serialized);
+
+      // Update user list
+      const userList = JSON.parse(
+        localStorage.getItem(STORAGE_KEY_USER_LIST) || "[]",
+      );
+      if (!userList.includes(user.id)) {
+        userList.push(user.id);
+        localStorage.setItem(STORAGE_KEY_USER_LIST, JSON.stringify(userList));
+      }
 
       localStorage.setItem(STORAGE_KEY_CURRENT, user.id);
     } catch (error) {
@@ -96,6 +106,13 @@ export function useRemoveUser(): UseRemoveUserReturn {
       const key = getUserStorageKey(userId);
       localStorage.removeItem(key);
 
+      // Update user list
+      const userList = JSON.parse(
+        localStorage.getItem(STORAGE_KEY_USER_LIST) || "[]",
+      );
+      const updatedList = userList.filter((id: string) => id !== userId);
+      localStorage.setItem(STORAGE_KEY_USER_LIST, JSON.stringify(updatedList));
+
       // If this was the current user, clear that too
       const currentUserId = localStorage.getItem(STORAGE_KEY_CURRENT);
       if (currentUserId === userId) {
@@ -112,10 +129,16 @@ export function useRemoveUser(): UseRemoveUserReturn {
 
   const clearAllUsers = useCallback(() => {
     try {
-      const keys = Object.keys(localStorage);
-      const userKeys = keys.filter((key) => key.startsWith(STORAGE_KEY_PREFIX));
+      const userList = JSON.parse(
+        localStorage.getItem(STORAGE_KEY_USER_LIST) || "[]",
+      );
 
-      userKeys.forEach((key) => localStorage.removeItem(key));
+      userList.forEach((userId: string) => {
+        const key = getUserStorageKey(userId);
+        localStorage.removeItem(key);
+      });
+
+      localStorage.removeItem(STORAGE_KEY_USER_LIST);
       localStorage.removeItem(STORAGE_KEY_CURRENT);
     } catch (error) {
       console.error("Failed to clear users:", error);
