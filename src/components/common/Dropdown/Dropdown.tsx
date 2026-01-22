@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import styles from "./Dropdown.module.scss";
 
 export interface DropdownAction {
@@ -8,64 +9,49 @@ export interface DropdownAction {
   variant?: "default" | "danger";
 }
 
-export interface DropdownProps {
+interface DropdownProps {
   isOpen: boolean;
   onClose: () => void;
   actions: DropdownAction[];
-  className?: string;
+  trigger: React.ReactNode; // We pass the ellipsis button here
 }
 
-export const Dropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
-  ({ isOpen, onClose, actions, className = "" }, ref) => {
-    const dropdownRef = useRef<HTMLDivElement>(null);
+export const Dropdown: React.FC<DropdownProps> = ({
+  isOpen,
+  onClose,
+  actions,
+  trigger,
+}) => {
+  return (
+    <DropdownMenu.Root
+      open={isOpen}
+      onOpenChange={(open) => !open && onClose()}
+    >
+      <DropdownMenu.Trigger asChild>{trigger}</DropdownMenu.Trigger>
 
-    useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (
-          dropdownRef.current &&
-          !dropdownRef.current.contains(event.target as Node)
-        ) {
-          onClose();
-        }
-      };
-
-      if (isOpen) {
-        document.addEventListener("mousedown", handleClickOutside);
-      }
-
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [isOpen, onClose]);
-
-    if (!isOpen) return null;
-
-    const dropdownClasses = [styles.dropdown, className]
-      .filter(Boolean)
-      .join(" ");
-
-    return (
-      <div ref={ref || dropdownRef} className={dropdownClasses}>
-        {actions.map((action, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              action.onClick();
-              onClose();
-            }}
-            className={`${styles.action} ${
-              action.variant === "danger" ? styles.danger : ""
-            }`}
-          >
-            <span className={styles.icon}>{action.icon}</span>
-            <span className={styles.label}>{action.label}</span>
-          </button>
-        ))}
-      </div>
-    );
-  },
-);
-
-Dropdown.displayName = "Dropdown";
-
-export default Dropdown;
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          className={styles.dropdown}
+          sideOffset={5}
+          align="end"
+          // This handles the smart "flip" automatically
+          avoidCollisions={true}
+        >
+          {actions.map((action, index) => (
+            <DropdownMenu.Item
+              key={index}
+              className={`${styles.action}`}
+              onClick={() => {
+                action.onClick();
+                onClose();
+              }}
+            >
+              <span className={styles.icon}>{action.icon}</span>
+              <span className={styles.label}>{action.label}</span>
+            </DropdownMenu.Item>
+          ))}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  );
+};

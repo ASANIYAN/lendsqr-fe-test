@@ -2,7 +2,6 @@ import React from "react";
 import { Eye, UserX, UserCheck } from "lucide-react";
 import type { DropdownAction } from "./Dropdown";
 
-// User actions dropdown helper
 export const createUserDropdownActions = (
   userId: string,
   onViewDetails: (id: string) => void,

@@ -9,7 +9,6 @@
   font-size: 14px;
   font-weight: 400;
   color: $color-text-secondary; // #545F7D
-  line-height: 16.42px;
 }
 
 .text {
@@ -34,12 +33,11 @@
   font-family: $font-family-primary;
   font-size: 14px;
   font-weight: 500;
-  color: $color-text-secondary;
-  line-height: 16.42px;
+  color: $color-text-primary;
 
   // Styling
-  background-color: rgba(33, 63, 125, 0.1); // Light blue-gray background
-  border: 1px solid rgba(33, 63, 125, 0.2);
+  background-color: #213f7d1a;
+  border: 1px solid #213f7d1a;
   border-radius: 4px;
 
   // Interaction

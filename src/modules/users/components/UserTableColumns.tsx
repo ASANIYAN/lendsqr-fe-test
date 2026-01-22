@@ -1,9 +1,9 @@
-import { ListFilter, EllipsisVertical } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Badge, Dropdown } from "@/components/common";
-import { createUserDropdownActions } from "@/components/common/Dropdown/dropdownHelpers";
+import { Badge } from "@/components/common";
 import type { User } from "../utils/types";
 import styles from "./UserTableColumns.module.scss";
+import { UserActionsCell } from "./UserActionsCell";
 
 interface UserTableColumnProps {
   onViewDetails: (id: string) => void;
@@ -19,8 +19,6 @@ export const createUserTableColumns = ({
   onBlacklistUser,
   onActivateUser,
   onFilterClick,
-  activeDropdown,
-  setActiveDropdown,
 }: UserTableColumnProps): ColumnDef<User>[] => [
   {
     accessorKey: "orgName",
@@ -149,34 +147,13 @@ export const createUserTableColumns = ({
   {
     id: "actions",
     header: () => null,
-    cell: ({ row }) => {
-      const userId = row.original.id;
-      const dropdownActions = createUserDropdownActions(
-        userId,
-        onViewDetails,
-        onBlacklistUser,
-        onActivateUser,
-      );
-
-      return (
-        <div className={styles.actionsCell}>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setActiveDropdown(activeDropdown === userId ? null : userId);
-            }}
-            className={styles.ellipsisButton}
-            aria-label="More actions"
-          >
-            <EllipsisVertical size={20} />
-          </button>
-          <Dropdown
-            isOpen={activeDropdown === userId}
-            onClose={() => setActiveDropdown(null)}
-            actions={dropdownActions}
-          />
-        </div>
-      );
-    },
+    cell: ({ row }) => (
+      <UserActionsCell
+        row={row}
+        onViewDetails={onViewDetails}
+        onBlacklistUser={onBlacklistUser}
+        onActivateUser={onActivateUser}
+      />
+    ),
   },
 ];

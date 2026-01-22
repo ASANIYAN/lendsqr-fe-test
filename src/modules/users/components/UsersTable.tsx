@@ -111,10 +111,10 @@ export const UsersTable: React.FC<UsersTableProps> = ({
   const handleRowClick = (user: User) => {
     try {
       storeUser(user);
-      onViewDetails(user.id);
+      // onViewDetails(user.id);
     } catch (error) {
       console.error("Failed to store user:", error);
-      onViewDetails(user.id);
+      // onViewDetails(user.id);
     }
   };
 
