@@ -97,7 +97,6 @@ The application includes comprehensive unit tests covering:
 
 - **Components** - Button, BaseInput, FormInput
 - **Hooks** - useUserStorage, useUserDetails
-- **Utilities** - Status helpers and data transformations
 
 Run `npm test` to execute the test suite.
 
