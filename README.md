@@ -107,7 +107,6 @@ src/
 ├── components/          # Reusable UI components
 │   ├── common/         # Generic components (Button, Input, Table, etc.)
 │   ├── layout/         # Layout components (Sidebar, Navbar)
-│   └── users/          # User-specific components
 ├── hooks/              # Custom React hooks
 │   ├── useUserStorage.ts    # localStorage operations
 │   ├── useUserDetails.ts    # User data management
