@@ -2,10 +2,11 @@ import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { DataTable, Filter } from "@/components/common";
 import type { FilterFormData } from "@/components/common/Filter/Filter";
 import { useDataTable } from "@/hooks/useDataTable";
-import { useUsersQuery } from "../hooks/useUsersQuery";
 import { createUserTableColumns } from "./UserTableColumns";
-import type { User, UserTableFilters } from "../utils/types";
+import { useStoreUser } from "@/hooks/useUserStorage";
 import styles from "./UsersTable.module.scss";
+import { useUsersQuery } from "../hooks/useUsersQuery";
+import type { User, UserTableFilters } from "../utils/types";
 
 interface UsersTableProps {
   onViewDetails: (id: string) => void;
@@ -24,7 +25,8 @@ export const UsersTable: React.FC<UsersTableProps> = ({
   const [filters, setFilters] = useState<UserTableFilters>({});
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if screen is mobile/tablet (less than 1024px)
+  const { storeUser } = useStoreUser(); // No more async needed!
+
   useEffect(() => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -107,7 +109,13 @@ export const UsersTable: React.FC<UsersTableProps> = ({
   };
 
   const handleRowClick = (user: User) => {
-    onViewDetails(user.id);
+    try {
+      storeUser(user);
+      onViewDetails(user.id);
+    } catch (error) {
+      console.error("Failed to store user:", error);
+      onViewDetails(user.id);
+    }
   };
 
   const columns = useMemo(
@@ -135,7 +143,6 @@ export const UsersTable: React.FC<UsersTableProps> = ({
     pageSize: 10,
     initialState: {
       columnPinning: { right: ["actions"] },
-
       pagination: {
         pageIndex: 0,
         pageSize: 10,
@@ -157,7 +164,6 @@ export const UsersTable: React.FC<UsersTableProps> = ({
       {/* Filter with conditional overlay */}
       {showFilter && (
         <>
-          {/* Show overlay only on mobile/tablet */}
           {isMobile && (
             <div
               className={styles.filterOverlay}

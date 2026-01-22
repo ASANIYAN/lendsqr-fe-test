@@ -108,6 +108,40 @@
   }
 }
 
+.outlined-inactive {
+  border-color: #545f7d;
+  color: #545f7d;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(84, 95, 125, 0.05);
+  }
+
+  &:active:not(:disabled) {
+    background-color: rgba(84, 95, 125, 0.1);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(84, 95, 125, 0.2);
+  }
+}
+
+.outlined-pending {
+  border-color: #e9b200;
+  color: #e9b200;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(233, 178, 0, 0.05);
+  }
+
+  &:active:not(:disabled) {
+    background-color: rgba(233, 178, 0, 0.1);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(233, 178, 0, 0.2);
+  }
+}
+
 .small {
   height: $button-height-small;
   padding: 0 $spacing-md;

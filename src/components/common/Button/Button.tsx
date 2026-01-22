@@ -4,7 +4,7 @@ import styles from "./Button.module.scss";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "outlined";
-  color?: "primary" | "danger" | "secondary";
+  color?: "primary" | "danger" | "secondary" | "inactive" | "pending";
   size?: "small" | "medium";
   uppercase?: boolean;
   fontFamily?: "work-sans" | "eau-sans";

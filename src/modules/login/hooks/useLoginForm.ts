@@ -37,14 +37,8 @@ export const useLoginForm = (): UseLoginFormReturn => {
 
       toast.success("Login successful!");
 
-      // Navigate to users dashboard
       navigate("/users");
-
-      // Here you would typically:
-      // 1. Make API call to login endpoint
-      // 2. Store authentication token
     } catch (error) {
-      // Show error toast
       toast.error("Login failed. Please check your credentials.");
       console.error("Login error:", error);
     } finally {

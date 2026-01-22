@@ -9,20 +9,15 @@ const Users: React.FC = () => {
   const navigate = useNavigate();
 
   const handleViewDetails = (userId: string) => {
-    // Navigate to user details page
     navigate(`/users/${userId}`);
   };
 
   const handleBlacklistUser = (userId: string) => {
-    // Handle blacklist user action
     console.log("Blacklisting user:", userId);
-    // You can implement the actual blacklist logic here
   };
 
   const handleActivateUser = (userId: string) => {
-    // Handle activate user action
     console.log("Activating user:", userId);
-    // You can implement the actual activation logic here
   };
 
   return (

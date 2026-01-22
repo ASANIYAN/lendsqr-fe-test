@@ -30,7 +30,7 @@ const fetchUsers = async (): Promise<User[]> => {
 };
 
 export const useUsersQuery = (options: UseUsersQueryOptions = {}) => {
-  const { enabled = true, staleTime = 5 * 60 * 1000 } = options; // 5 minutes default
+  const { enabled = true, staleTime = 5 * 60 * 60 * 1000 } = options; // 5 hours default
 
   const query = useQuery({
     queryKey: ["users"],

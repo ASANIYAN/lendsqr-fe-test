@@ -1,41 +1,61 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { UserDetailsHeader } from "../../components/UserDetailsHeader";
-import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
 import { UserInfo } from "../../components/UserInfo";
 import { AuthLayout } from "@/components/layout";
+import useUserDetails from "../../hooks/useUserDetails";
+import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
 
 export function UserDetails() {
   const navigate = useNavigate();
-  const { userId } = useParams();
+  const { id } = useParams();
 
-  // TODO: Fetch user data based on userId
-  const userData = {
-    fullName: "Grace Effiom",
-    userId: "LSQFf587g90",
-    userTier: 1,
-    accountBalance: 200000.0,
-    accountNumber: "9912345678",
-    bankName: "Providus Bank",
-  };
+  const { user, loading, error } = useUserDetails({
+    userId: id,
+    redirectOnError: true,
+    redirectDelay: 2000,
+  });
 
   const handleBack = () => {
     navigate("/users");
   };
 
   const handleBlacklist = () => {
-    console.log("Blacklist user:", userId);
-    // TODO: Implement blacklist logic
+    if (!user) return;
   };
 
   const handleActivate = () => {
-    console.log("Activate user:", userId);
-    // TODO: Implement activate logic
+    if (!user) return;
   };
 
   const handleTabChange = (tabId: string) => {
     console.log("Tab changed to:", tabId);
-    // TODO: Handle tab content display
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <AuthLayout>
+        <div style={{ padding: "40px", textAlign: "center" }}>
+          <p>Loading user details...</p>
+        </div>
+      </AuthLayout>
+    );
+  }
+
+  // Error state
+  if (error || !user) {
+    return (
+      <AuthLayout>
+        <div style={{ padding: "40px", textAlign: "center" }}>
+          <h3>Error</h3>
+          <p>{error || "User not found"}</p>
+          <p style={{ marginTop: "10px", fontSize: "14px", color: "#666" }}>
+            Redirecting to users page...
+          </p>
+        </div>
+      </AuthLayout>
+    );
+  }
 
   return (
     <AuthLayout>
@@ -44,19 +64,20 @@ export function UserDetails() {
           onBack={handleBack}
           onBlacklist={handleBlacklist}
           onActivate={handleActivate}
+          user={user}
         />
 
         <UserProfileCard
-          fullName={userData.fullName}
-          userId={userData.userId}
-          userTier={userData.userTier}
-          accountBalance={userData.accountBalance}
-          accountNumber={userData.accountNumber}
-          bankName={userData.bankName}
+          fullName={`${user.profile.firstName} ${user.profile.lastName}`}
+          userId={user.id}
+          userTier={1}
+          accountBalance={parseFloat(user.accountBalance)}
+          accountNumber={user.accountNumber}
+          bankName="Providus Bank"
           onTabChange={handleTabChange}
         />
 
-        <UserInfo />
+        <UserInfo user={user} />
       </div>
     </AuthLayout>
   );

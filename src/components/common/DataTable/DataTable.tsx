@@ -7,7 +7,7 @@ import { DataTablePagination } from "./DataTablePagination";
 interface DataTableProps<TData> extends React.ComponentProps<"div"> {
   table: TanstackTable<TData>;
   isLoading?: boolean;
-  onRowClick?: (row: TData) => void;
+  onRowClick?: (row: TData) => void | Promise<void>;
   children?: React.ReactNode;
   pageSizeOptions?: number[];
 }
@@ -34,6 +34,12 @@ export function DataTable<TData>({
       />
     );
   }
+
+  const handleRowClick = async (row: TData) => {
+    if (onRowClick) {
+      await onRowClick(row);
+    }
+  };
 
   return (
     <div className={containerClasses} {...props}>
@@ -63,7 +69,7 @@ export function DataTable<TData>({
                 <tr
                   key={row.id}
                   className={styles.bodyRow}
-                  onClick={() => onRowClick?.(row.original)}
+                  onClick={() => handleRowClick?.(row.original)}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (

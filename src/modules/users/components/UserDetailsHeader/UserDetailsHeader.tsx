@@ -2,18 +2,20 @@ import React from "react";
 import styles from "./UserDetailsHeader.module.scss";
 import { Button } from "@/components/common";
 import arrow_icon from "@/assets/long-arrow-left-icon.svg";
+import type { User } from "@/modules/users/utils/types";
 
 export interface UserDetailsHeaderProps {
   onBack: () => void;
   onBlacklist: () => void;
   onActivate: () => void;
   className?: string;
+  user?: User;
 }
 
 export const UserDetailsHeader = React.forwardRef<
   HTMLDivElement,
   UserDetailsHeaderProps
->(({ onBack, onBlacklist, onActivate, className = "" }, ref) => {
+>(({ onBack, onBlacklist, onActivate, className = "", user }, ref) => {
   const headerClasses = [styles.header, className].filter(Boolean).join(" ");
 
   return (
@@ -43,15 +45,27 @@ export const UserDetailsHeader = React.forwardRef<
           Blacklist User
         </Button>
 
-        <Button
-          variant="outlined"
-          color="primary"
-          size="small"
-          uppercase
-          onClick={onActivate}
-        >
-          Activate User
-        </Button>
+        {user?.status === "Active" ? (
+          <Button
+            variant="outlined"
+            color="inactive"
+            size="small"
+            uppercase
+            onClick={onActivate}
+          >
+            Deactivate User
+          </Button>
+        ) : (
+          <Button
+            variant="outlined"
+            color="primary"
+            size="small"
+            uppercase
+            onClick={onActivate}
+          >
+            Activate User
+          </Button>
+        )}
       </div>
     </div>
   );
