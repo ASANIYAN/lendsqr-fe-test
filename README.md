@@ -96,7 +96,7 @@ npm run test -- --watch
 The application includes comprehensive unit tests covering:
 
 - **Components** - Button, BaseInput, FormInput
-- **Hooks** - useUserStorage, useUserDetails
+- **Hooks** - useUsersQuery, useUserStorage, useUserDetails
 
 Run `npm test` to execute the test suite.
 
