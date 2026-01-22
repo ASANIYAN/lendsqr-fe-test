@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { X } from "lucide-react";
 import { BaseInput } from "../Input/BaseInput";
 import { BaseSelect, type SelectOption } from "../Select/BaseSelect";
 import { Button } from "../Button/Button";
 import styles from "./Filter.module.scss";
+import { useClickOutside } from "@/hooks/useOutsideClick";
 
 export interface FilterFormData {
   organization?: string;
@@ -27,8 +28,8 @@ export const Filter: React.FC<FilterProps> = ({
   onClose,
   className = "",
 }) => {
-  const filterRef = React.useRef<HTMLDivElement>(null);
-  const [formData, setFormData] = React.useState<FilterFormData>({
+  const filterRef = useRef<HTMLDivElement>(null);
+  const [formData, setFormData] = useState<FilterFormData>({
     organization: "",
     username: "",
     email: "",
@@ -38,7 +39,7 @@ export const Filter: React.FC<FilterProps> = ({
   });
 
   // Check if screen is mobile/tablet (less than 1024px)
-  const [showCloseButton, setShowCloseButton] = React.useState(false);
+  const [showCloseButton, setShowCloseButton] = useState(false);
 
   React.useEffect(() => {
     const checkScreenSize = () => {
@@ -51,24 +52,14 @@ export const Filter: React.FC<FilterProps> = ({
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  // Handle click outside on desktop
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        filterRef.current &&
-        !filterRef.current.contains(event.target as Node) &&
-        window.innerWidth >= 1024 && // Only on desktop
-        onClose
-      ) {
-        onClose();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
+  useClickOutside(filterRef, () => {
+    if (
+      window.innerWidth >= 1024 && // Only on desktop
+      onClose
+    ) {
+      onClose();
+    }
+  });
 
   // Options for select fields
   const organizationOptions: SelectOption[] = [
