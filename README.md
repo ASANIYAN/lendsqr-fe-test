@@ -1,73 +1,150 @@
-# React + TypeScript + Vite
+# Lendsqr Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-ready admin dashboard for managing lending platform users, built with React, TypeScript, and SCSS.
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This application provides a comprehensive user management interface for Lendsqr's lending platform. It features a responsive data table with filtering capabilities, detailed user profiles, and persistent data storage using localStorage. The application demonstrates modern React development practices with a focus on code quality, accessibility, and maintainability.
 
-## React Compiler
+## Architecture
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The application follows **SOLID principles** with a **component-driven architecture**:
 
-## Expanding the ESLint configuration
+1. **Presentation Layer** - Reusable UI components (Button, Input, Table, Badge, etc.)
+2. **Business Logic Layer** - Custom React hooks for data management and storage
+3. **Data Layer** - Mock API with 500+ user records, localStorage for persistence
+4. **Routing Layer** - React Router for navigation and protected routes
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Each layer maintains single responsibility with clear interfaces, ensuring scalability and ease of testing.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **User Management Dashboard** - View and filter 500+ user records
+- **Advanced Filtering** - Filter by organization, username, email, phone, status, and date
+- **Pagination** - Configurable page sizes (10, 25, 50, 100 records per page)
+- **User Details** - Comprehensive user profile with tabs for different information sections
+- **Persistent Storage** - localStorage integration for user data across sessions
+- **Responsive Design** - Fully responsive across desktop, tablet, and mobile devices
+- **Accessibility** - WCAG compliant with proper ARIA attributes and keyboard navigation
+- **Type Safety** - Full TypeScript coverage with strict mode enabled
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/lendsqr-fe-test.git
+
+# Navigate to project directory
+cd lendsqr-fe-test
+
+# Install dependencies
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Configuration
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The application uses SCSS variables for consistent theming. Update design tokens in `src/styles/abstracts/_variables.scss` if needed:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```scss
+// Primary colors
+$color-primary: #39cdcc;
+$color-text-primary: #213f7d;
+
+// Status colors
+$color-status-active: #39cd62;
+$color-status-pending: #e9b200;
+$color-status-inactive: #e4033b;
 ```
+
+## Usage
+
+### Development Server
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+### Run Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test -- --watch
+```
+
+## Testing
+
+The application includes comprehensive unit tests covering:
+
+- **Components** - Button, BaseInput, FormInput
+- **Hooks** - useUserStorage, useUserDetails
+- **Utilities** - Status helpers and data transformations
+
+Run `npm test` to execute the test suite.
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── common/         # Generic components (Button, Input, Table, etc.)
+│   ├── layout/         # Layout components (Sidebar, Navbar)
+│   └── users/          # User-specific components
+├── hooks/              # Custom React hooks
+│   ├── useUserStorage.ts    # localStorage operations
+│   ├── useUserDetails.ts    # User data management
+│   └── useDataTable.ts      # Table state management
+├── modules/            # Feature modules
+│   └── users/          # User management module
+│       ├── components/ # Module-specific components
+│       ├── pages/      # User pages (List, Details)
+│       └── utils/      # Type definitions and helpers
+├── styles/             # SCSS architecture
+│   ├── abstracts/      # Variables, mixins, functions
+│   ├── base/           # Reset, typography, global styles
+│   └── main.scss       # Main stylesheet
+└── assets/             # Static assets (images, icons, fonts)
+```
+
+## Key Technologies
+
+- **React** - UI library
+- **TypeScript** - Type safety and improved DX
+- **SCSS** - Maintainable styling with design tokens
+- **React Router** - Client-side routing
+- **TanStack Table** - Table management
+- **Vitest** - Unit testing framework
+- **Vite** - Lightning-fast build tool
+
+## Accessibility Features
+
+- Semantic HTML structure
+- ARIA labels and roles
+- Keyboard navigation support
+- Focus management
+- Screen reader compatible
+- Sufficient color contrast (WCAG AA)
+
+## Requirements
+
+- Node.js 18+
+- npm 9+
