@@ -112,6 +112,11 @@ src/
 │   ├── useUserDetails.ts    # User data management
 │   └── useDataTable.ts      # Table state management
 ├── modules/            # Feature modules
+│   ├── login/          # Login module
+│   │   ├── components/ # Login components
+│   │   ├── hooks/      # Login hooks
+│   │   ├── utils/      # Login utilities
+│   │   └── views/      # Login views
 │   └── users/          # User management module
 │       ├── components/ # Module-specific components
 │       ├── pages/      # User pages (List, Details)
@@ -132,15 +137,6 @@ src/
 - **TanStack Table** - Table management
 - **Vitest** - Unit testing framework
 - **Vite** - Lightning-fast build tool
-
-## Accessibility Features
-
-- Semantic HTML structure
-- ARIA labels and roles
-- Keyboard navigation support
-- Focus management
-- Screen reader compatible
-- Sufficient color contrast (WCAG AA)
 
 ## Requirements
 
