@@ -19,7 +19,7 @@ Each layer maintains single responsibility with clear interfaces, ensuring scala
 
 ## Features
 
-- **User Management Dashboard** - View and filter 500+ user records
+- **User Management Dashboard** - View and filter 500 user records
 - **Advanced Filtering** - Filter by organization, username, email, phone, status, and date
 - **Pagination** - Configurable page sizes (10, 25, 50, 100 records per page)
 - **User Details** - Comprehensive user profile with tabs for different information sections
