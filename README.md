@@ -12,8 +12,8 @@ The application follows **SOLID principles** with a **component-driven architect
 
 1. **Presentation Layer** - Reusable UI components (Button, Input, Table, Badge, etc.)
 2. **Business Logic Layer** - Custom React hooks for data management and storage
-3. **Data Layer** - Mock API with 500+ user records, localStorage for persistence
-4. **Routing Layer** - React Router for navigation and protected routes
+3. **Data Layer** - Mock API with 500 user records, localStorage for persistence
+4. **Routing Layer** - React Router for navigation.
 
 Each layer maintains single responsibility with clear interfaces, ensuring scalability and ease of testing.
 
