@@ -2,8 +2,8 @@
 @use "@/styles/abstracts/mixins" as *;
 
 .loginContainer {
-  display: flex;
   width: 100%;
+  display: flex;
   min-height: 100vh;
 }
 
@@ -17,7 +17,9 @@
 
 @include respond-to(tablet) {
   .loginContainer {
-    flex-direction: column;
+    display: block;
+    min-height: 100%;
+    // flex-direction: column;
   }
 
   .leftSide {
