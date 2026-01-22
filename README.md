@@ -132,7 +132,7 @@ src/
 
 - **React** - UI library
 - **TypeScript** - Type safety and improved DX
-- **SCSS** - Maintainable styling with design tokens
+- **SCSS** - Maintainable styling
 - **React Router** - Client-side routing
 - **TanStack Table** - Table management
 - **Vitest** - Unit testing framework
