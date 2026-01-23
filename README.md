@@ -91,6 +91,15 @@ npm run test:coverage
 npm run test -- --watch
 ```
 
+## How to Login
+
+To access the application, use any valid email address and a password that meets the requirements. This should suffice for logging in.
+
+Sample credentials:
+
+- Email: johndoe@gmail.com
+- Password: Johndoe123#
+
 ## Testing
 
 The application includes comprehensive unit tests covering:
