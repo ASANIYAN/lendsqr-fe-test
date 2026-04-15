@@ -1,10 +1,10 @@
 # Lendsqr Dashboard
 
-A production-ready admin dashboard for managing lending platform users, built with React, TypeScript, and SCSS.
+An admin dashboard for managing lending platform users, built with React, TypeScript, and SCSS.
 
 ## Description
 
-This application provides a comprehensive user management interface for Lendsqr's lending platform. It features a responsive data table with filtering capabilities, detailed user profiles, and persistent data storage using localStorage. The application demonstrates modern React development practices with a focus on code quality, accessibility, and maintainability.
+This application provides a lending admin interface for Lendsqr's platform. It now includes a post-login Dashboard summary page, a responsive users data table with filtering, detailed user profiles, and persistent data storage using localStorage. The application demonstrates modern React development practices with a focus on code quality, accessibility, and maintainability.
 
 ## Architecture
 
@@ -19,7 +19,8 @@ Each layer maintains single responsibility with clear interfaces, ensuring scala
 
 ## Features
 
-- **User Management Dashboard** - View and filter 500 user records
+- **Dashboard Overview** - View key summary metrics and recent loan requests
+- **User Management** - View and filter 500 user records
 - **Advanced Filtering** - Filter by organization, username, email, phone, status, and date
 - **Pagination** - Configurable page sizes (10, 25, 50, 100 records per page)
 - **User Details** - Comprehensive user profile with tabs for different information sections
@@ -27,6 +28,7 @@ Each layer maintains single responsibility with clear interfaces, ensuring scala
 - **Responsive Design** - Fully responsive across desktop, tablet, and mobile devices
 - **Accessibility** - WCAG compliant with proper ARIA attributes and keyboard navigation
 - **Type Safety** - Full TypeScript coverage with strict mode enabled
+- **Client-side Navigation** - Sidebar routing uses React Router without full page refreshes
 
 ## Installation
 
@@ -95,6 +97,8 @@ npm run test -- --watch
 
 To access the application, use any valid email address and a password that meets the requirements. This should suffice for logging in.
 
+After successful login, users are redirected to `/dashboard`.
+
 Sample credentials:
 
 - Email: johndoe@gmail.com
@@ -104,8 +108,9 @@ Sample credentials:
 
 The application includes comprehensive unit tests covering:
 
-- **Components** - Button, BaseInput, FormInput
+- **Components** - Button, BaseInput, FormInput, Dashboard components
 - **Hooks** - useUsersQuery, useUserStorage, useUserDetails
+- **Views** - Dashboard view scenarios (rendering, fallback states, and summary table behavior)
 
 Run `npm test` to execute the test suite.
 
@@ -126,10 +131,16 @@ src/
 │   │   ├── hooks/      # Login hooks
 │   │   ├── utils/      # Login utilities
 │   │   └── views/      # Login views
+│   ├── dashboard/      # Dashboard module
+│   │   ├── components/ # Dashboard-specific components
+│   │   ├── constants/  # Dashboard mock data
+│   │   ├── utils/      # Dashboard types
+│   │   └── views/      # Dashboard views
 │   └── users/          # User management module
 │       ├── components/ # Module-specific components
-│       ├── pages/      # User pages (List, Details)
+│       ├── views/      # User views (List, Details)
 │       └── utils/      # Type definitions and helpers
+├── router/             # Route definitions
 ├── styles/             # SCSS architecture
 │   ├── abstracts/      # Variables, mixins, functions
 │   ├── base/           # Reset, typography, global styles
