@@ -10,6 +10,8 @@ interface DataTableProps<TData> extends React.ComponentProps<"div"> {
   onRowClick?: (row: TData) => void | Promise<void>;
   children?: React.ReactNode;
   pageSizeOptions?: number[];
+  showPagination?: boolean;
+  emptyMessage?: string;
 }
 
 export function DataTable<TData>({
@@ -18,6 +20,8 @@ export function DataTable<TData>({
   onRowClick,
   children,
   pageSizeOptions,
+  showPagination = true,
+  emptyMessage = "No results found.",
   className = "",
   ...props
 }: DataTableProps<TData>) {
@@ -89,7 +93,7 @@ export function DataTable<TData>({
                   className={styles.emptyCell}
                 >
                   <div className={styles.emptyState}>
-                    <p>No results found.</p>
+                    <p>{emptyMessage}</p>
                   </div>
                 </td>
               </tr>
@@ -98,7 +102,9 @@ export function DataTable<TData>({
         </table>
       </div>
 
-      <DataTablePagination table={table} pageSizeOptions={pageSizeOptions} />
+      {showPagination && (
+        <DataTablePagination table={table} pageSizeOptions={pageSizeOptions} />
+      )}
     </div>
   );
 }

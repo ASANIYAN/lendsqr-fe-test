@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { X } from "lucide-react";
 import styles from "./Sidebar.module.scss";
 
@@ -56,7 +56,7 @@ const menuConfig: MenuSection[] = [
         id: "dashboard",
         label: "Dashboard",
         icon: dashboardIcon,
-        path: "#",
+        path: "/dashboard",
       },
     ],
   },
@@ -328,14 +328,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
                           : ""
                       }`}
                     >
-                      <a href={item.path} className={styles.itemLink}>
+                      <Link to={item.path} className={styles.itemLink}>
                         <img
                           src={item.icon}
                           alt=""
                           className={styles.itemIcon}
                         />
                         <span className={styles.itemText}>{item.label}</span>
-                      </a>
+                      </Link>
                     </li>
                   );
                 })}

@@ -37,7 +37,7 @@ export const useLoginForm = (): UseLoginFormReturn => {
 
       toast.success("Login successful!");
 
-      navigate("/users");
+      navigate("/dashboard");
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");
       console.error("Login error:", error);

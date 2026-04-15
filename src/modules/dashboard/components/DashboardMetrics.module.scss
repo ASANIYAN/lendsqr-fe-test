@@ -1,0 +1,103 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.metricsSection {
+  width: 100%;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.metricCard {
+  background: $color-white;
+  border-radius: 4px;
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+  padding: 20px 30px 30px;
+  min-height: 160px;
+}
+
+.iconCircle {
+  @include flex-center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 14px;
+}
+
+.iconCircleUsers {
+  background: #f9dddd;
+}
+
+.iconCircleActiveUsers {
+  background: #e5f8f8;
+}
+
+.iconCircleLoans {
+  background: #f8ecd4;
+}
+
+.iconCircleSavings {
+  background: #f0e5ff;
+}
+
+.iconCircleRepayment {
+  background: #e5f8f8;
+}
+
+.iconCirclePending {
+  background: #f8ecd4;
+}
+
+.iconUsers {
+  color: #df18ff;
+}
+
+.iconActiveUsers {
+  color: #39cdcc;
+}
+
+.iconLoans {
+  color: #e9b200;
+}
+
+.iconSavings {
+  color: #9b51e0;
+}
+
+.iconRepayment {
+  color: #39cdcc;
+}
+
+.iconPending {
+  color: #e9b200;
+}
+
+.label {
+  margin: 0 0 12px;
+  color: $color-text-secondary;
+  font-family: $font-family-primary;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.value {
+  margin: 0;
+  color: $color-text-primary;
+  font-family: $font-family-primary;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+}

@@ -1,0 +1,24 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.section {
+  margin-top: 40px;
+}
+
+.sectionTitle {
+  margin: 0 0 20px;
+  color: $color-text-primary;
+  font-family: $font-family-primary;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.table {
+  width: 100%;
+
+  // Align summary view with page responsiveness.
+  :global(table) {
+    min-width: 900px;
+  }
+}

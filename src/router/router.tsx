@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import App from "@/App";
 import Login from "@/modules/login/views/Login";
+import { Dashboard } from "@/modules/dashboard/views/Dashboard";
 import { Users } from "@/modules/users/views/Users/index";
 import UserDetails from "@/modules/users/views/UserDetails/UserDetails";
 
@@ -21,6 +22,10 @@ export const routes: RouteObject[] = [
       {
         path: "users",
         element: <Users />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
       },
       {
         path: "users/:id",

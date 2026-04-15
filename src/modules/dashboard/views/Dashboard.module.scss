@@ -1,0 +1,20 @@
+@use "@/styles/abstracts/variables" as *;
+@use "@/styles/abstracts/mixins" as *;
+
+.dashboardPage {
+  width: 100%;
+}
+
+.title {
+  margin: 0 0 40px;
+  color: #213f7d;
+  font-family: $font-family-primary;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+
+  @include respond-to(mobile) {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+}
