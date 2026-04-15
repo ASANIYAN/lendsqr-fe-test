@@ -265,3 +265,41 @@
 .sectionGap {
   height: 0;
 }
+
+.logoutSection {
+  border-top: 1px solid rgba(33, 63, 125, 0.1);
+  margin: 0 30px;
+  padding: 20px 0 30px;
+}
+
+.logoutButton {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: $color-text-primary;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  text-align: left;
+  font-family: $font-family-primary;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.logoutIcon {
+  flex-shrink: 0;
+}
+
+.logoutText {
+  margin-left: 10px;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+}

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { LogOut, X } from "lucide-react";
 import styles from "./Sidebar.module.scss";
+import { useUserStorage } from "@/hooks/useUserStorage";
 
 // Import icons
 import switchOrgIcon from "@/assets/switch-org.svg";
@@ -202,6 +203,8 @@ const menuConfig: MenuSection[] = [
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { clearCurrentUser } = useUserStorage();
   const [isMobile, setIsMobile] = useState(false);
 
   // Track window size to determine if we should show the close button
@@ -237,6 +240,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
+  const handleLogout = () => {
+    clearCurrentUser();
+    navigate("/login");
+
+    if (isMobile) {
       handleClose();
     }
   };
@@ -348,6 +360,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
             </div>
           ))}
         </nav>
+
+        <div className={styles.logoutSection}>
+          <button
+            type="button"
+            className={styles.logoutButton}
+            onClick={handleLogout}
+          >
+            <LogOut size={16} className={styles.logoutIcon} aria-hidden="true" />
+            <span className={styles.logoutText}>Logout</span>
+          </button>
+        </div>
       </aside>
     </>
   );
