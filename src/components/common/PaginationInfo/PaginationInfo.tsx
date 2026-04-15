@@ -1,6 +1,7 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
 import styles from "./PaginationInfo.module.scss";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export type PaginationInfoProps = {
   pageSize: number;
@@ -24,18 +25,7 @@ export const PaginationInfo = React.forwardRef<
     },
     ref,
   ) => {
-    const [isMobile, setIsMobile] = React.useState(false);
-
-    React.useEffect(() => {
-      const checkIsMobile = () => {
-        setIsMobile(window.innerWidth < 768);
-      };
-
-      checkIsMobile();
-      window.addEventListener("resize", checkIsMobile);
-
-      return () => window.removeEventListener("resize", checkIsMobile);
-    }, []);
+    const isMobile = useIsMobile();
 
     const handlePageSizeChange = (
       event: React.ChangeEvent<HTMLSelectElement>,

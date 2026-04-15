@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import TopBar from "@/components/layout/TopBar";
 import Sidebar from "@/components/layout/Sidebar";
 import styles from "./AuthLayout.module.scss";
+import { useAuthLayout } from "./useAuthLayout";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
 }
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { isSidebarOpen, setIsSidebarOpen } = useAuthLayout();
 
   return (
     <div className={styles.authLayout}>

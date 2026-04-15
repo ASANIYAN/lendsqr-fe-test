@@ -1,10 +1,7 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { AuthLayout } from "@/components/layout";
-import {
-  DASHBOARD_METRICS,
-  RECENT_LOAN_REQUESTS,
-} from "../constants/dashboardData";
 import { DashboardMetrics, RecentLoanRequestsTable } from "../components";
+import { useDashboardData } from "../hooks/useDashboardData";
 import styles from "./Dashboard.module.scss";
 
 /**
@@ -12,8 +9,7 @@ import styles from "./Dashboard.module.scss";
  * and a compact table of recent loan requests.
  */
 export const Dashboard: React.FC = () => {
-  const metrics = useMemo(() => DASHBOARD_METRICS, []);
-  const loanRequests = useMemo(() => RECENT_LOAN_REQUESTS, []);
+  const { metrics, loanRequests } = useDashboardData();
 
   return (
     <AuthLayout>

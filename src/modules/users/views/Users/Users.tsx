@@ -1,24 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "@/components/layout";
 import { UserStats } from "../../components";
 import { UsersTable } from "../../components/UsersTable";
 import styles from "./Users.module.scss";
+import { useUsersPageActions } from "../../hooks/useUsersPageActions";
 
 const Users: React.FC = () => {
-  const navigate = useNavigate();
-
-  const handleViewDetails = (userId: string) => {
-    navigate(`/users/${userId}`);
-  };
-
-  const handleBlacklistUser = (userId: string) => {
-    console.log("Blacklisting user:", userId);
-  };
-
-  const handleActivateUser = (userId: string) => {
-    console.log("Activating user:", userId);
-  };
+  const { handleViewDetails, handleBlacklistUser, handleActivateUser } =
+    useUsersPageActions();
 
   return (
     <AuthLayout>

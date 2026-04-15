@@ -1,83 +1,24 @@
-import React, { useMemo } from "react";
-import type { ColumnDef } from "@tanstack/react-table";
+import React from "react";
 import { Badge, DataTable } from "@/components/common";
-import type { BadgeVariant } from "@/components/common/Badge/Badge";
-import { useDataTable } from "@/hooks/useDataTable";
 import type { LoanRequest } from "../utils/types";
+import {
+  getStatusVariant,
+  useRecentLoanRequestsTable,
+} from "../hooks/useRecentLoanRequestsTable";
 import styles from "./RecentLoanRequestsTable.module.scss";
 
-interface RecentLoanRequestsTableProps {
+export interface RecentLoanRequestsTableProps {
   loanRequests?: LoanRequest[];
 }
-
-const getStatusVariant = (status: string): BadgeVariant => {
-  const normalizedStatus = status.toLowerCase();
-
-  if (normalizedStatus === "active") {
-    return "active";
-  }
-
-  if (normalizedStatus === "inactive") {
-    return "inactive";
-  }
-
-  if (normalizedStatus === "pending") {
-    return "pending";
-  }
-
-  if (normalizedStatus === "blacklisted") {
-    return "blacklisted";
-  }
-
-  return "inactive";
-};
 
 export const RecentLoanRequestsTable: React.FC<RecentLoanRequestsTableProps> = ({
   loanRequests,
 }) => {
-  const data = useMemo(() => loanRequests ?? [], [loanRequests]);
-
-  const columns = useMemo<ColumnDef<LoanRequest>[]>(
-    () => [
-      {
-        accessorKey: "username",
-        header: "Username",
-      },
-      {
-        accessorKey: "amount",
-        header: "Amount",
-      },
-      {
-        accessorKey: "status",
-        header: "Status",
-        cell: ({ row }) => {
-          const status = row.original.status;
-
-          return <Badge variant={getStatusVariant(status)}>{status}</Badge>;
-        },
-      },
-      {
-        accessorKey: "date",
-        header: "Date",
-      },
-      {
-        accessorKey: "organization",
-        header: "Organization",
-      },
-    ],
-    [],
-  );
-
-  const { table } = useDataTable({
-    data,
-    columns,
-    pageSize: 7,
-    initialState: {
-      pagination: {
-        pageIndex: 0,
-        pageSize: 7,
-      },
-    },
+  const { table } = useRecentLoanRequestsTable({
+    loanRequests,
+    renderStatus: (status) => (
+      <Badge variant={getStatusVariant(status)}>{status}</Badge>
+    ),
   });
 
   return (

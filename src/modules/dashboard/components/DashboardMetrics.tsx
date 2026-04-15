@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import {
   BadgePercent,
   CircleDollarSign,
@@ -7,11 +7,11 @@ import {
   PiggyBank,
   Users,
 } from "lucide-react";
-import { DASHBOARD_METRICS } from "../constants/dashboardData";
 import type {
   DashboardMetric,
   DashboardMetricIconVariant,
 } from "../utils/types";
+import { useDashboardMetrics } from "../hooks/useDashboardMetrics";
 import styles from "./DashboardMetrics.module.scss";
 
 interface DashboardMetricsProps {
@@ -58,21 +58,7 @@ const getMetricIcon = (iconVariant: DashboardMetricIconVariant) => {
 export const DashboardMetrics: React.FC<DashboardMetricsProps> = ({
   metrics,
 }) => {
-  const fallbackMetrics = useMemo(
-    () => DASHBOARD_METRICS.map((metric) => ({ ...metric, value: "—" })),
-    [],
-  );
-
-  const metricsToRender = useMemo(() => {
-    if (!metrics?.length) {
-      return fallbackMetrics;
-    }
-
-    return metrics.map((metric) => ({
-      ...metric,
-      value: metric.value || "—",
-    }));
-  }, [fallbackMetrics, metrics]);
+  const { metricsToRender } = useDashboardMetrics({ metrics });
 
   return (
     <section className={styles.metricsSection} aria-label="Dashboard metrics">

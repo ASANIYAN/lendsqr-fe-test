@@ -1,6 +1,7 @@
 import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./Pagination.module.scss";
+import { usePagination } from "./usePagination";
 
 export type PaginationProps = {
   currentPage: number;
@@ -15,123 +16,29 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     { currentPage, totalPages, onPageChange, siblingCount = 1, className = "" },
     ref,
   ) => {
-    // Responsive sibling count based on screen size
-    const [isMobile, setIsMobile] = React.useState(false);
-
-    React.useEffect(() => {
-      const checkIsMobile = () => {
-        setIsMobile(window.innerWidth < 768);
-      };
-
-      checkIsMobile();
-      window.addEventListener("resize", checkIsMobile);
-
-      return () => window.removeEventListener("resize", checkIsMobile);
-    }, []);
-
-    // Adjust sibling count for mobile
-    const responsiveSiblingCount = isMobile ? 0 : siblingCount;
-    // Generate array of page numbers to display
-    const getPageNumbers = (): (number | string)[] => {
-      const totalPageNumbers = responsiveSiblingCount + 5; // First, last, current, and siblings
-
-      // On mobile, show fewer pages
-      if (isMobile && totalPages > 5) {
-        const current = currentPage + 1;
-
-        if (current <= 3) {
-          return [1, 2, 3, "...", totalPages];
-        }
-
-        if (current >= totalPages - 2) {
-          return [1, "...", totalPages - 2, totalPages - 1, totalPages];
-        }
-
-        return [1, "...", current, "...", totalPages];
-      }
-
-      // Show all pages if total is small
-      if (totalPages <= totalPageNumbers) {
-        return Array.from({ length: totalPages }, (_, i) => i + 1);
-      }
-
-      const leftSiblingIndex = Math.max(
-        currentPage + 1 - responsiveSiblingCount,
-        1,
-      );
-      const rightSiblingIndex = Math.min(
-        currentPage + 1 + responsiveSiblingCount,
-        totalPages,
-      );
-
-      const shouldShowLeftDots = leftSiblingIndex > 2;
-      const shouldShowRightDots = rightSiblingIndex < totalPages - 1;
-
-      const firstPageIndex = 1;
-      const lastPageIndex = totalPages;
-
-      // No left dots, but right dots
-      if (!shouldShowLeftDots && shouldShowRightDots) {
-        const leftItemCount = 3 + 2 * responsiveSiblingCount;
-        const leftRange = Array.from(
-          { length: leftItemCount },
-          (_, i) => i + 1,
-        );
-        return [...leftRange, "...", totalPages];
-      }
-
-      // Left dots, but no right dots
-      if (shouldShowLeftDots && !shouldShowRightDots) {
-        const rightItemCount = 3 + 2 * responsiveSiblingCount;
-        const rightRange = Array.from(
-          { length: rightItemCount },
-          (_, i) => totalPages - rightItemCount + i + 1,
-        );
-        return [firstPageIndex, "...", ...rightRange];
-      }
-
-      // Both left and right dots
-      if (shouldShowLeftDots && shouldShowRightDots) {
-        const middleRange = Array.from(
-          { length: rightSiblingIndex - leftSiblingIndex + 1 },
-          (_, i) => leftSiblingIndex + i,
-        );
-        return [firstPageIndex, "...", ...middleRange, "...", lastPageIndex];
-      }
-
-      return [];
-    };
-
-    const pageNumbers = getPageNumbers();
-
-    const handlePrevious = () => {
-      if (currentPage > 0) {
-        onPageChange(currentPage - 1);
-      }
-    };
-
-    const handleNext = () => {
-      if (currentPage < totalPages - 1) {
-        onPageChange(currentPage + 1);
-      }
-    };
-
-    const handlePageClick = (page: number) => {
-      onPageChange(page - 1); // Convert to 0-indexed
-    };
+    const {
+      pageNumbers,
+      isFirstPage,
+      isLastPage,
+      goToNextPage,
+      goToPreviousPage,
+      goToPage,
+    } = usePagination({
+      currentPage,
+      totalPages,
+      onPageChange,
+      siblingCount,
+    });
 
     const containerClasses = [styles.pagination, className]
       .filter(Boolean)
       .join(" ");
 
-    const isFirstPage = currentPage === 0;
-    const isLastPage = currentPage === totalPages - 1;
-
     return (
       <div ref={ref} className={containerClasses}>
         {/* Previous Button */}
         <button
-          onClick={handlePrevious}
+          onClick={goToPreviousPage}
           disabled={isFirstPage}
           className={`${styles.navButton} ${isFirstPage ? styles.disabled : ""}`}
           aria-label="Previous page"
@@ -157,7 +64,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             return (
               <button
                 key={pageNumber}
-                onClick={() => handlePageClick(pageNumber)}
+                onClick={() => goToPage(pageNumber)}
                 className={`${styles.pageButton} ${isActive ? styles.active : ""}`}
                 aria-label={`Page ${pageNumber}`}
                 aria-current={isActive ? "page" : undefined}
@@ -171,7 +78,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
 
         {/* Next Button */}
         <button
-          onClick={handleNext}
+          onClick={goToNextPage}
           disabled={isLastPage}
           className={`${styles.navButton} ${isLastPage ? styles.disabled : ""}`}
           aria-label="Next page"
